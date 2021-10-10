@@ -8,6 +8,7 @@ import axios from 'axios';
 import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
+import Register2 from './pages/register-2';
 
 import Dashboard from './pages/user/dashboard';
 import Settings from './pages/user/settings';
@@ -21,7 +22,7 @@ const App = () => {
     if (!token) {
       return;
     }
-    axios.get(`http://localhost:4000/verifyToken?token=${token}`).then(response => {
+    axios.get(`http://localhost:5002/verifyToken?token=${token}`).then(response => {
       setUserSession(response.data.token, response.data.user);
       setAuthLoading(false);
     }).catch(error => {
@@ -38,9 +39,10 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Home} />
-        
+
         <PublicRoute path="/login" component={Login} />]
         <PublicRoute path="/register" component={Register} />
+        <PublicRoute path="/register-2" component={Register2} />
 
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/settings" component={Settings} />

@@ -4,7 +4,7 @@ services:
     image: project-frontend
     container_name: project-frontend
     build: .
-    command: npm install
+    command: npm start
     volumes:
       - .:/usr/src/app
     ports:

@@ -19,3 +19,12 @@
   border: 1px solid #0B5ED7;
   border-radius: 20px;
 }
+
+
+.a-form > div {
+  margin: 2rem 0;
+}
+
+.a-form > div > div{
+  margin: 1rem 0;
+}
