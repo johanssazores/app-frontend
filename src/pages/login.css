@@ -1,0 +1,14 @@
+.login {
+  margin-top: 10rem;
+  padding: 5rem 20rem;
+  border-radius: 20px;
+}
+.login-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-icon > i {
+  font-size: 10rem;
+  color: #0B5ED7;
+}

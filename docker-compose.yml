@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    image: project-frontend
+    container_name: project-frontend
+    build: .
+    command: npm install
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 4002:3000

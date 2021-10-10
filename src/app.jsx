@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import { getToken, removeUserSession, setUserSession } from './utils/Common';
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import Home from './pages/home';
 import Login from './pages/login';
+import Register from './pages/register';
 
 import Dashboard from './pages/user/dashboard';
 import Settings from './pages/user/settings';
@@ -35,23 +36,15 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div>
-        <div className="header">
-          <NavLink exact activeClassName="active" to="/">Home</NavLink>
-          <NavLink activeClassName="active" to="/login">Login</NavLink><small>(Access without token only)</small>
-          <NavLink activeClassName="active" to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small>
-        </div>
-        <div className="content">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            
-            <PublicRoute path="/login" component={Login} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        
+        <PublicRoute path="/login" component={Login} />]
+        <PublicRoute path="/register" component={Register} />
 
-            <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/settings" component={Settings} />
-          </Switch>
-        </div>
-      </div>
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/settings" component={Settings} />
+      </Switch>
     </BrowserRouter>
   )
 }

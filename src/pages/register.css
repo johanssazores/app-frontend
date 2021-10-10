@@ -1,0 +1,21 @@
+.register-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2em 0;
+}
+.register-icon > i {
+  font-size: 10rem;
+  color: #0B5ED7;
+  margin-bottom: 20px;
+}
+
+.register-icon > a {
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+  padding: 20px;
+  border: 1px solid #0B5ED7;
+  border-radius: 20px;
+}

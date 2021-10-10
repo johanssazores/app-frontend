@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { setUserSession } from '../utils/Common';
+import React, { useState } from 'react'
+import axios from 'axios'
+import { setUserSession } from '../utils/Common'
+import './login.css'
 
-function Login(props) {
+const Login = (props) => {
+
   const [loading, setLoading] = useState(false)
   const username = useFormInput('')
   const password = useFormInput('')
@@ -24,20 +26,32 @@ function Login(props) {
   }
 
   return (
-    <div>
-      Login<br /><br />
-      <div>
-        Username<br />
-        <input type="text" {...username} autoComplete="new-password" />
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12 ">
+            <div className="login">
+              <form>
+                <div className="login-icon">
+                  <i className="fas fa-sign-in-alt"></i>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Username</label>
+                  <input placeholder="Username" type="text"  {...username} className="form-control" />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Password</label>
+                  <input placeholder="Password"type="password" {...password} className="form-control"/>
+                </div>
+                {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
+                <input type="button" className="btn btn-primary" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} />
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      <div style={{ marginTop: 10 }}>
-        Password<br />
-        <input type="password" {...password} autoComplete="new-password" />
-      </div>
-      {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-      <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} /><br />
-    </div>
-  );
+    </>
+  )
 }
 
 const useFormInput = initialValue => {
