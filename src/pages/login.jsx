@@ -1,70 +1,65 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { setUserSession } from '../utils/Common'
-import './login.css'
 
 const Login = (props) => {
 
-  const [loading, setLoading] = useState(false)
-  const username = useFormInput('')
-  const password = useFormInput('')
+  const [login, setLogin] = useState({
+    username:"",
+    password: ""
+  })
   const [error, setError] = useState(null)
+  const {REACT_APP_BACKEND_URL} = process.env;
+  const appEnv = {backEndUrl: REACT_APP_BACKEND_URL};
 
-  // handle button click of login form
-  const handleLogin = () => {
+  const handleLogin = login => {
     setError(null);
-    setLoading(true);
-    axios.post('http://localhost:5002/users/signin', { username: username.value, password: password.value }).then(response => {
-      setLoading(false);
-      setUserSession(response.data.token, response.data.user);
-      props.history.push('/dashboard');
+    axios.post(`${appEnv.backEndUrl}/users/signin`, login).then(response => {
+      setUserSession(response.data.token, response.data.user)
+      props.history.push('/dashboard')
     }).catch(error => {
-      setLoading(false);
       if (error.response.status === 401) setError(error.response.data.message);
-      else setError("Something went wrong. Please try again later.");
-    });
+      else setError("Something went wrong. Please try again later.")
+    })
+  }
+
+  const SubmitHandlerLogin = async e => {
+    e.preventDefault();
+    handleLogin(login);
   }
 
   return (
     <>
-      <div className="container">
-        <div className="row" style={{marginTop: "5rem"}}>
-          <div className="col-md-6">
-            <img width="100%" src="https://149366112.v2.pressablecdn.com/wp-content/uploads/2019/03/shutterstock_1693785667-scaled.jpg" alt="" />
+      <div>
+        <form onSubmit={SubmitHandlerLogin}>
+          <div className="mb-3">
+            <label className="form-label">Username</label>
+            <input 
+              name="username"
+              placeholder="Username" type="text"
+              value={login.username}  
+              onChange={e => {
+              setLogin({...login, username: e.target.value});}}
+              />
           </div>
-          <div className="col-md-6">
-            <form>
-              <div className="login-icon">
-                <i className="fas fa-sign-in-alt"></i>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Username</label>
-                <input placeholder="Username" type="text"  {...username} className="form-control" />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input placeholder="Password"type="password" {...password} className="form-control"/>
-              </div>
-              {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-              <input type="button" className="btn btn-primary" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} />
-            </form>
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+            <input 
+              name="password"
+              placeholder="Password" 
+              type="password"
+              value={login.password} 
+              onChange={e => {
+              setLogin({...login, password: e.target.value});}}
+            />
           </div>
-        </div>
+          {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
+          <button type="submit">LOGIN</button>
+        </form>
       </div>
     </>
   )
 }
 
-const useFormInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
-
-  const handleChange = e => {
-    setValue(e.target.value);
-  }
-  return {
-    value,
-    onChange: handleChange
-  }
-}
 
 export default Login

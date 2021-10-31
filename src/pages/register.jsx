@@ -1,11 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import './register.css'
-
 
 const Register = () => {
 
   return (
+
     <div className="container">
       <div className="row" style={{marginTop: "5rem"}}>
         <h2>Registration</h2>
