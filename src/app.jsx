@@ -6,9 +6,9 @@ import PublicRoute from './utils/PublicRoute'
 import axios from 'axios'
 
 import Home from './pages/home'
-import Login from './pages/login'
-import Register from './pages/register'
-import Register2 from './pages/register-2'
+import Login from './pages/user-login'
+import Register from './pages/user-register'
+import Register2 from './pages/user-register-2'
 
 import Dashboard from './pages/user/dashboard'
 import Settings from './pages/user/settings'
