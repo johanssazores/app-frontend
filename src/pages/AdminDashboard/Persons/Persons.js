@@ -1,48 +1,63 @@
 import React from 'react'
+import { ThemeProvider } from "@mui/styles";
+import { createTheme } from "@mui/material/styles";
+import MUIDataTable from "mui-datatables";
 
 const Persons = () => {
+
+  const columns = [
+    { name: "Name", options: { filterOptions: { fullWidth: true } } },
+    "Title",
+    "Location"
+  ];
+
+  const options = {
+    search: true,
+    download: true,
+    print: true,
+    viewColumns: true,
+    filter: true,
+    filterType: "dropdown",
+    responsive: "vertical",
+    tableBodyHeight: "",
+    tableBodyMaxHeight: "",
+    onTableChange: (action, state) => {
+      console.log(action);
+      console.dir(state);
+    }
+  };
+
+  const data = [
+    ["Gabby George", "Business Analyst", "Minneapolis"],
+    [
+      "Aiden Lloyd",
+      "Business Consultant for an International Company and CEO of Tony's Burger Palace",
+      "Dallas"
+    ],
+    ["Jaden Collins", "Attorney", "Santa Ana"],
+    ["Franky Rees", "Business Analyst", "St. Petersburg"],
+    ["Aaren Rose", null, "Toledo"],
+    ["Johnny Jones", "Business Analyst", "St. Petersburg"],
+    ["Jimmy Johns", "Business Analyst", "Baltimore"],
+    ["Jack Jackson", "Business Analyst", "El Paso"],
+    ["Joe Jones", "Computer Programmer", "El Paso"],
+    ["Jacky Jackson", "Business Consultant", "Baltimore"],
+    ["Jo Jo", "Software Developer", "Washington DC"],
+    ["Donna Marie", "Business Manager", "Annapolis"]
+  ];
   
   return (
     <>
-      <div className="container-fluid">
-      <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Persons</h1>
-        <a href="/" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-          className="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-      </div>
-
-        <div className="card shadow mb-4">
-          <div className="card-header py-3">
-            <h6 className="m-0 font-weight-bold text-primary">Persons</h6>
-          </div>
-          <div className="card-body">
-            <div className="table-responsive">
-              <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="container-fluid">
+      <ThemeProvider theme={createTheme()}>
+        <MUIDataTable
+          title={"Persons"}
+          data={data}
+          columns={columns}
+          options={options}
+        />
+      </ThemeProvider>
+    </div>
     </>
   )
 }
