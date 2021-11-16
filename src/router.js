@@ -27,22 +27,24 @@ import Users from "./pages/AdminDashboard/Users/Users"
 import UserAdd from "./pages/AdminDashboard/Users/UserAdd"
 import UserEdit from "./pages/AdminDashboard/Users/UserEdit"
 
+import Test from './pages/Test'
+
 function RouterApp() {
   const { loggedIn } = useContext(AuthContext);
 
   return (
     <Router>
-
       <Switch>
-        <Route exact path="/"><Home /></Route>
+        <Route component={Home}  path="/" exact/>
+        <Route component={Test} path="/test" />
         <Route path="/qrtest"><QRTest /></Route>
         <Route path="/qrview/:id">
           <QRView />
         </Route>
         {loggedIn === false && (
           <React.Fragment>
-            <Route path="/register"><Register /></Route>
-            <Route path="/login"><Login /></Route>
+            <Route component={Register}path="/register" exact />
+            <Route component={Login} path="/login" exact />
           </React.Fragment>
         )}
 
@@ -59,20 +61,20 @@ function RouterApp() {
                     </li>
                   </ul>
                 </nav>
-                <Route path="/admin-dashboard"> <Dashboard /></Route>
-                <Route path="/customers"> <Customers /></Route>
+                <Route component={Dashboard} path="/admin-dashboard" exact/> 
+                <Route component={Customers} path="/customers" exact /> 
 
-                <Route exact path="/divisions" > <Division /></Route>
-                <Route path="/divisions:id"> <DivisionEdit /></Route>
-                <Route path="/division-add"> <DivisionAdd /> </Route>
+                <Route component={Division} path="/divisions" exact />
+                <Route component={DivisionEdit} path="/divisions:id"/> 
+                <Route component={DivisionAdd} path="/division-add" />  
 
-                <Route exact path="/persons"> <Persons /></Route>
-                <Route path="/persons/:id"> <PersonEdit /></Route>
-                <Route path="/person-add"> <PersonAdd /></Route>
+                <Route component={Persons} path="/persons" /> 
+                <Route component={PersonEdit}path="/persons/:id" exact/> 
+                <Route component={PersonAdd}path="/person-add" exact/> 
 
-                <Route exact path="/users"> <Users /> </Route>
-                <Route path="/users/:id"> <UserEdit /> </Route>
-                <Route path="/user-add"> <UserAdd /> </Route>
+                <Route component={Users} path="/users" exact/> 
+                <Route component={UserEdit}path="/users/:id" exact/> 
+                <Route component={UserAdd}path="/user-add" exact/> 
                 </div>
                 <Footer />
               </div>
