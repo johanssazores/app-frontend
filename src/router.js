@@ -5,15 +5,14 @@ import Login from "./pages/Login";
 import Register from "./components/auth/Register";
 import Customers from "./components/customers/Customers";
 
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
 import AuthContext from "./context/AuthContext";
 
 import Home from './pages/Home'
 import QRView from "./pages/QRView";
 import QRTest from "./pages/QRTest";
 
-import Dashboard from "./pages/AdminDashboard/Dashboard";
+import DashboardLayout from "./components/Dashboard";
+import Dashboard from "./pages/AdminDashboard/Dashboard"
 
 import Division from "./pages/AdminDashboard/Divisions/Divisions";
 import DivisionAdd from "./pages/AdminDashboard/Divisions/DivisionAdd";
@@ -27,7 +26,7 @@ import Users from "./pages/AdminDashboard/Users/Users"
 import UserAdd from "./pages/AdminDashboard/Users/UserAdd"
 import UserEdit from "./pages/AdminDashboard/Users/UserEdit"
 
-import Test from './pages/Test'
+import NotFound from './pages/NotFound'
 
 function RouterApp() {
   const { loggedIn } = useContext(AuthContext);
@@ -36,11 +35,10 @@ function RouterApp() {
     <Router>
       <Switch>
         <Route component={Home}  path="/" exact/>
-        <Route component={Test} path="/test" />
+
         <Route path="/qrtest"><QRTest /></Route>
-        <Route path="/qrview/:id">
-          <QRView />
-        </Route>
+        <Route path="/qrview/:id"><QRView /></Route>
+
         {loggedIn === false && (
           <React.Fragment>
             <Route component={Register}path="/register" exact />
@@ -49,40 +47,27 @@ function RouterApp() {
         )}
 
         {loggedIn === true && (
-          <React.Fragment>      
-            <div id="wrapper">
-              <Navbar />
-              <div id="content-wrapper" className="d-flex flex-column">
-                <div id="content">
-                <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                  <ul className="navbar-nav ml-auto">
-                    <li className="nav-item dropdown no-arrow">
-                      <span className="mr-2 d-none d-lg-inline text-gray-600 big">A Test</span>
-                    </li>
-                  </ul>
-                </nav>
-                <Route component={Dashboard} path="/admin-dashboard" exact/> 
-                <Route component={Customers} path="/customers" exact /> 
+          <DashboardLayout>
+            <Route component={Dashboard} path="/admin-dashboard" exact/>
+            <Route component={Customers} path="/customers" exact />
 
-                <Route component={Division} path="/divisions" exact />
-                <Route component={DivisionEdit} path="/divisions:id"/> 
-                <Route component={DivisionAdd} path="/division-add" />  
+            <Route component={Division} path="/divisions" exact />
+            <Route component={DivisionEdit} path="/divisions/:id"/>
+            <Route component={DivisionAdd} path="/division-add" />
 
-                <Route component={Persons} path="/persons" /> 
-                <Route component={PersonEdit}path="/persons/:id" exact/> 
-                <Route component={PersonAdd}path="/person-add" exact/> 
+            <Route component={Persons} path="/persons" />
+            <Route component={PersonEdit}path="/persons/:id" exact/>
+            <Route component={PersonAdd}path="/person-add" exact/>
 
-                <Route component={Users} path="/users" exact/> 
-                <Route component={UserEdit}path="/users/:id" exact/> 
-                <Route component={UserAdd}path="/user-add" exact/> 
-                </div>
-                <Footer />
-              </div>
-            </div>
-          </React.Fragment>
+            <Route component={Users} path="/users" exact/>
+            <Route component={UserEdit}path="/users/:id" exact/>
+            <Route component={UserAdd}path="/user-add" exact/>
+          </DashboardLayout>
         )}
+
+        <Route component={NotFound} />
       </Switch>
-     
+
     </Router>
   );
 }

@@ -1,12 +1,11 @@
 import React from 'react'
 
-const DivisionForm = () => {
-
+const NotFound = () => {
   return (
     <div>
-      
+      Not Found
     </div>
   )
 }
 
-export default DivisionForm
+export default NotFound

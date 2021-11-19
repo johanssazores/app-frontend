@@ -1,10 +1,12 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 const DivisionEdit = () => {
-  
+  let {id} = useParams();
+
   return (
     <div>
-      
+      {id}
     </div>
   )
 }

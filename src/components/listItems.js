@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { NavLink } from 'react-router-dom';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -9,13 +10,22 @@ import LayersIcon from '@mui/icons-material/Layers';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItem
+    button
+    key="Dashboard"
+    component={NavLink} to="/admin-dashboard"
+    >
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button>
+
+    <ListItem
+    button
+    key="Persons"
+    component={NavLink} to="/persons"
+    >
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
@@ -23,7 +33,11 @@ export const mainListItems = (
     </ListItem>
 
 
-    <ListItem button>
+    <ListItem
+    button
+    key="Division"
+    component={NavLink} to="/divisions"
+    >
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
@@ -35,7 +49,11 @@ export const mainListItems = (
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>Admin</ListSubheader>
-    <ListItem button>
+    <ListItem
+    button
+    key="Staffs"
+    component={NavLink} to="/users"
+    >
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

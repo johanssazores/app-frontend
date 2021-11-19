@@ -81,7 +81,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent({pageComponent}) {
+function DashboardContent(props) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -118,7 +118,7 @@ function DashboardContent({pageComponent}) {
             >
               Thesis App
             </Typography>
-            
+
             {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
@@ -164,9 +164,9 @@ function DashboardContent({pageComponent}) {
           <Toolbar />
 
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              
+             {props.children}
             {/* <Grid container spacing={3}>
-        
+
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -180,7 +180,7 @@ function DashboardContent({pageComponent}) {
                 </Paper>
               </Grid>
 
-        
+
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -193,7 +193,7 @@ function DashboardContent({pageComponent}) {
                   <Deposits />
                 </Paper>
               </Grid>
-          
+
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
@@ -201,7 +201,7 @@ function DashboardContent({pageComponent}) {
               </Grid>
             </Grid> */}
 
-            
+
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
@@ -214,6 +214,4 @@ function DashboardContent({pageComponent}) {
   );
 }
 
-export default function Dashboard() {
-  return <DashboardContent />;
-}
+export default DashboardContent;
