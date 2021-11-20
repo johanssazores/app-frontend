@@ -10,6 +10,8 @@ import UserLogin from './pages/UserLogin';
 // import Settings from './pages/user/settings';
 
 import Registration from './pages/SignUp'
+import QRView from './pages/QRView';
+
 
 import AdminLogin from './pages/AdminLogin';
 
@@ -59,6 +61,8 @@ const App = () => {
         <Route exact path="/" component={UserLogin} />
 
         <Route exact path="/registration" component={Registration} />
+        
+        <Route exact path="/qr/:id" component={QRView} />
 
         <PublicRoute exact path="/admin-login" component={AdminLogin} />
       
