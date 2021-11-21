@@ -1,7 +1,42 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 const DivisionAdd = () => {
+
+const [newDivision, setNewDivision] = useState({
+  division: ""
+})
+const [isLoading, setIsLoading] = useState(false);
+
+  const SubmitAddDivision = async e => {
+    e.preventDefault();
+    // console.log(newDivision)
+    try {
+      setIsLoading(true)
+      const saveDivision = await axios.request(
+        `${process.env.REACT_APP_BACKEND_URL}/division`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          data: JSON.stringify({
+            "division": newDivision.division,
+          })
+        }
+      )
+      console.log(saveDivision.data)
+
+      alert('Division Added')
+      window.location.href="/divisions"
+
+    }
+    catch(err) {
+      console.error(err)
+    }
+    finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="container">
@@ -11,15 +46,22 @@ const DivisionAdd = () => {
       </div>
       <div className="row">
         <div className="col-md-12">
-          <form>
+          <form onSubmit={SubmitAddDivision}>
             <div className="form-group">
               <label>Division</label>
-              <input type="text" className="form-control" value="" placeholder="Division" />
+              <input type="text"
+                className="form-control"
+                placeholder="Division"
+                value={newDivision.division}
+                onChange={e => setNewDivision({...newDivision, division: e.target.value})}
+                required
+              />
             </div>
             <button type="submit" className="btn btn-primary">Add Division</button>
           </form>
         </div>
       </div>
+      {(isLoading) ? <div className="exid-spinner" style={{ fontSize: "10em" }}></div> : ""}
     </div>
   )
 }

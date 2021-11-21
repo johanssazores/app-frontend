@@ -14,11 +14,17 @@ const Divisions = () => {
     const getDivision = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/division`);
     setDivision(getDivision.data);
     setIsLoading(false)
-  } 
+  }
 
   useEffect(() => {
     getDivision();
   }, []);
+
+  const SubmitDeleteDivision = (value) => {
+
+    console.log(value)
+
+  }
 
   const columns = [
     {
@@ -38,7 +44,7 @@ const Divisions = () => {
           return (
             <>
               <Link className="button-table-view" to={`/division/${value}`}>View More</Link>
-              <button className="button-table-delete" >Delete</button>
+              <button className="button-table-delete" onClick={() => { if (window.confirm('Are you sure you wish to delete this division?')) SubmitDeleteDivision(value) } }>Delete</button>
             </>
           );
         },

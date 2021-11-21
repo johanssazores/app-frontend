@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 
 const DivisionEdit = () => {
   let {id} = useParams();
-  const [division, setDivision] = useState({});
+  const [division, setDivision] = useState({
+    division: ""
+  });
+  const [updateDivision, setUpdateDivision] = useState({
+    updateDivision: division.division
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getDivision() {
@@ -15,23 +21,60 @@ const DivisionEdit = () => {
     getDivision();
   },[id]);
 
+  const SubmitUpdateDivision = async e => {
+    e.preventDefault();
+    try {
+      setIsLoading(true)
+      const divisionUpdate = await axios.request(
+        `${process.env.REACT_APP_BACKEND_URL}/division/${id}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          data: JSON.stringify({
+            "division": updateDivision.updateDivision,
+          })
+        }
+      )
+      console.log(divisionUpdate.data)
+
+      alert('Division Updated')
+      window.location.href="/divisions"
+
+    }
+    catch(err) {
+      console.error(err)
+    }
+    finally {
+      setIsLoading(false)
+    }
+  }
+
+
   return (
     <div className="container">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Edit Division</h1>
+        <h1 className="h3 mb-0 text-gray-800">Edit Division - {division.division}</h1>
         <Link to="/divisions" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
       </div>
       <div className="row">
         <div className="col-md-12">
-        <form>
+        <form onSubmit={SubmitUpdateDivision}>
           <div className="form-group">
             <label>Division</label>
-            <input type="text" className="form-control" value={division.division} placeholder="Division" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Division"
+              value={updateDivision.updateDivision}
+              onChange={e => setUpdateDivision({...updateDivision, updateDivision: e.target.value})}
+              required
+            />
           </div>
           <button type="submit" className="btn btn-primary">Update</button>
         </form>
         </div>
       </div>
+      {(isLoading) ? <div className="exid-spinner" style={{ fontSize: "10em" }}></div> : ""}
     </div>
   )
 }
