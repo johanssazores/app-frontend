@@ -60,6 +60,10 @@ const UserLogin = (props) => {
                         {/* <button className="btn btn-primary btn-user btn-block" type="submit">LOGIN</button> */}
                         <input type="button" className="btn btn-primary btn-user btn-block" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} />
                       </form>
+                      <hr />
+                      <div class="text-center">
+                          <a class="small" href="/registration">Register Now</a>
+                      </div>
                     </div>
                   </div>
                 </div>

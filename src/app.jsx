@@ -6,7 +6,7 @@ import PublicRoute from './utils/PublicRoute';
 import axios from 'axios';
 
 import UserLogin from './pages/UserLogin';
-// import Dashboard from './pages/user/dashboard';
+import Dashboard from './pages/User/Dashboard';
 // import Settings from './pages/user/settings';
 
 import Registration from './pages/SignUp'
@@ -63,6 +63,7 @@ const App = () => {
         <Route exact path="/registration" component={Registration} />
         
         <Route exact path="/qr/:id" component={QRView} />
+        <Route exact path="/dashboard" component={Dashboard} />
 
         <PublicRoute exact path="/admin-login" component={AdminLogin} />
       

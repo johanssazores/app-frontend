@@ -62,7 +62,7 @@ const AdminDashboard = () => {
       datasets: [
         {
           label: "# of Pregnant",
-          data: [12, 19, 3, 5, 2, 3],
+          data: [12, 19, 3, 50, 2, 3],
           borderWidth: 3,
           fill: false,
           borderColor: "pink"
