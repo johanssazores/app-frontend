@@ -21,9 +21,24 @@ const Divisions = () => {
   }, []);
 
   const SubmitDeleteDivision = (value) => {
-
-    console.log(value)
-
+    setIsLoading(true)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/division/${value}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      setIsLoading(false)
+      alert('Division Deleted')
+      window.location.href="/admin/divisions"
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      setIsLoading(false)
+    });
   }
 
   const columns = [
@@ -43,7 +58,7 @@ const Divisions = () => {
         customBodyRender: (value) => {
           return (
             <>
-              <Link className="button-table-view" to={`/division/${value}`}>View More</Link>
+              <Link className="button-table-view" to={`/admin/division/${value}`}>View More</Link>
               <button className="button-table-delete" onClick={() => { if (window.confirm('Are you sure you wish to delete this division?')) SubmitDeleteDivision(value) } }>Delete</button>
             </>
           );
@@ -74,7 +89,7 @@ const Divisions = () => {
     <div className="container-fluid">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Divisions</h1>
-        <Link to="/division-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Division</Link>
+        <Link to="/admin/division-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Division</Link>
       </div>
       <ThemeProvider theme={createTheme()}>
         <MUIDataTable

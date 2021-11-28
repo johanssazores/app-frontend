@@ -19,6 +19,27 @@ const Users = () => {
     getUsers();
   }, []);
 
+  const SubmitDeleteUser = (value) => {
+    setIsLoading(true)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${value}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      setIsLoading(false)
+      alert('Division Deleted')
+      window.location.href="/admin/users"
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      setIsLoading(false)
+    });
+  }
+
   const columns = [
     {
      name: "email",
@@ -69,8 +90,8 @@ const Users = () => {
         customBodyRender: (value) => {
           return (
             <>
-              <Link className="button-table-view" to={`/user/${value}`}>View More</Link>
-              <button className="button-table-delete">Delete</button>
+              <Link className="button-table-view" to={`/admin/user/${value}`}>View More</Link>
+              <button className="button-table-delete" onClick={() => { if (window.confirm('Are you sure you wish to delete this user?')) SubmitDeleteUser(value) } }>Delete</button>
             </>
           );
         },
@@ -95,12 +116,14 @@ const Users = () => {
     // }
   };
 
+  
+
   return (
     <>
     <div className="container-fluid">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Users</h1>
-        <Link to="/user-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add User</Link>
+        <Link to="/admin/user-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add User</Link>
       </div>
       <ThemeProvider theme={createTheme()}>
         <MUIDataTable

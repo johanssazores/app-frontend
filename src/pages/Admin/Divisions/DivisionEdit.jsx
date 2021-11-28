@@ -5,18 +5,17 @@ import { Link } from 'react-router-dom';
 
 const DivisionEdit = () => {
   let {id} = useParams();
-  const [division, setDivision] = useState({
+
+  const [updateDivision, setUpdateDivision] = useState({
     division: ""
   });
-  const [updateDivision, setUpdateDivision] = useState({
-    updateDivision: division.division
-  });
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getDivision() {
       const divisionGet = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/division/${id}`);
-      setDivision(divisionGet.data);
+      setUpdateDivision(divisionGet.data);
     }
     getDivision();
   },[id]);
@@ -49,12 +48,18 @@ const DivisionEdit = () => {
     }
   }
 
+  const onChangeUpdateDivision = (e) => {  
+    e.persist();  
+    setUpdateDivision({...updateDivision, [e.target.name]: e.target.value});  
+  }  
+
+
 
   return (
     <div className="container">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Edit Division - {division.division}</h1>
-        <Link to="/divisions" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
+        <h1 className="h3 mb-0 text-gray-800">Edit Division - {updateDivision.division}</h1>
+        <Link to="/admin/divisions" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
       </div>
       <div className="row">
         <div className="col-md-12">
@@ -65,12 +70,12 @@ const DivisionEdit = () => {
               type="text"
               className="form-control"
               placeholder="Division"
-              value={updateDivision.updateDivision}
-              onChange={e => setUpdateDivision({...updateDivision, updateDivision: e.target.value})}
+              value={updateDivision.division || ""}
+              onChange={onChangeUpdateDivision}
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">Update</button>
+          <button type="submit" className="btn btn-primary">Edit Division</button>
         </form>
         </div>
       </div>

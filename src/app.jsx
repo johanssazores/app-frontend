@@ -12,7 +12,6 @@ import Dashboard from './pages/User/Dashboard';
 import Registration from './pages/SignUp'
 import QRView from './pages/QRView';
 
-
 import AdminLogin from './pages/AdminLogin';
 
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -29,6 +28,9 @@ import UserEdit from './pages/Admin/Users/UserEdit'
 import Persons from './pages/Admin/Persons/Persons'
 import PersonAdd from './pages/Admin/Persons/PersonAdd'
 import PersonEdit from './pages/Admin/Persons/PersonEdit'
+
+import Movements from './pages/Admin/Movements/Movements';
+import ScannerQR from './pages/ScannerQR';
 
 import NotFound from './pages/NotFound';
 
@@ -64,23 +66,26 @@ const App = () => {
         
         <Route exact path="/qr/:id" component={QRView} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/scanner" component={ScannerQR} />
 
-        <PublicRoute exact path="/admin-login" component={AdminLogin} />
+        <PublicRoute exact path="/admin/login" component={AdminLogin} />
       
-        <PrivateRoute exact path="/admin-dashboard" component={AdminDashboard} />
-        <PrivateRoute exact path="/settings" component={AdminSettings} />
+        <PrivateRoute exact path="/admin/dashboard" component={AdminDashboard} />
+        <PrivateRoute exact path="/admin//settings" component={AdminSettings} />
 
-        <PrivateRoute exact path="/divisions" component={Divisions} />
-        <PrivateRoute exact path="/division-add" component={DivisionAdd} />
-        <PrivateRoute exact path="/division/:id" component={DivisionEdit} />
+        <PrivateRoute exact path="/admin/divisions" component={Divisions} />
+        <PrivateRoute exact path="/admin/division-add" component={DivisionAdd} />
+        <PrivateRoute exact path="/admin/division/:id" component={DivisionEdit} />
 
-        <PrivateRoute exact path="/users" component={Users} />
-        <PrivateRoute exact path="/user-add" component={UserAdd} />
-        <PrivateRoute exact path="/user/:id" component={UserEdit} />
+        <PrivateRoute exact path="/admin/users" component={Users} />
+        <PrivateRoute exact path="/admin/user-add" component={UserAdd} />
+        <PrivateRoute exact path="/admin/user/:id" component={UserEdit} />
 
-        <PrivateRoute exact path="/persons" component={Persons} />
-        <PrivateRoute exact path="/person-add" component={PersonAdd} />
-        <PrivateRoute exact path="/person/:id" component={PersonEdit} />
+        <PrivateRoute exact path="/admin/persons" component={Persons} />
+        <PrivateRoute exact path="/admin/person-add" component={PersonAdd} />
+        <PrivateRoute exact path="/admin/person/:id" component={PersonEdit} />
+
+        <PrivateRoute exact path="/admin/movements" component={Movements} />
      
         <Route component={NotFound} />
       </Switch>

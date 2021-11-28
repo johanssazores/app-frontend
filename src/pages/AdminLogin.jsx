@@ -16,7 +16,7 @@ const Login = (props) => {
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/login`, { username: username.value, password: password.value }).then(response => {
       setLoading(false);
       setUserSession(response.data.token, response.data.user);
-      props.history.push('/admin-dashboard');
+      props.history.push('/admin/dashboard');
     }).catch(error => {
       setLoading(false);
       if (error.response.status === 401) setError(error.response.data.message);

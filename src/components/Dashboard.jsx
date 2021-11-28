@@ -12,7 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems, secondaryListItems } from './listItems';
+// import { mainListItems, secondaryListItems } from './listItems';
+import Sidebar from './listItems';
 
 function Copyright(props) {
   return (
@@ -117,6 +118,8 @@ function DashboardContent(props) {
                 <NotificationsIcon />
               </Badge>
             </IconButton> */}
+
+
           </Toolbar>
         </AppBar>
 
@@ -136,9 +139,10 @@ function DashboardContent(props) {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
+          <List>
+          <Sidebar />
+          </List>
+
         </Drawer>
 
 

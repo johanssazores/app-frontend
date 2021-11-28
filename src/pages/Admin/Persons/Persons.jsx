@@ -7,16 +7,16 @@ import { Link } from 'react-router-dom';
 
 const Persons = () => {
 
-  const [users, setUsers] = useState([]);
+  const [persons, setPersons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  async function getUsers() {
-    const getUsers = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user`);
-    setUsers(getUsers.data);
+  async function getPersons() {
+    const getUsers = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/person`);
+    setPersons(getUsers.data);
     setIsLoading(false)
   } 
 
   useEffect(() => {
-    getUsers();
+    getPersons();
   }, []);
 
   const columns = [
@@ -27,14 +27,6 @@ const Persons = () => {
       filter: true,
       sort: true,
      }
-    },
-    {
-      name: "role",
-      label: "Role",
-      options: {
-        filter: true,
-        sort: true,
-      }
     },
     {
       name: "firstName",
@@ -69,7 +61,7 @@ const Persons = () => {
         customBodyRender: (value) => {
           return (
             <>
-              <Link className="button-table-view" to={`/user/${value}`}>View More</Link>
+              <Link className="button-table-view" to={`/admin/person/${value}`}>View More</Link>
               <button className="button-table-delete">Delete</button>
             </>
           );
@@ -100,12 +92,12 @@ const Persons = () => {
     <div className="container-fluid">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Persons</h1>
-        <Link to="/user-person" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Person</Link>
+        <Link to="/admin/person-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Person</Link>
       </div>
       <ThemeProvider theme={createTheme()}>
         <MUIDataTable
           title={"Person List"}
-          data={users}
+          data={persons}
           columns={columns}
           options={options}
         />

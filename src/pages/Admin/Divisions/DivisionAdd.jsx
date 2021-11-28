@@ -25,10 +25,8 @@ const [isLoading, setIsLoading] = useState(false);
         }
       )
       console.log(saveDivision.data)
-
       alert('Division Added')
       window.location.href="/divisions"
-
     }
     catch(err) {
       console.error(err)
@@ -42,7 +40,7 @@ const [isLoading, setIsLoading] = useState(false);
     <div className="container">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Add Division</h1>
-        <Link to="/divisions" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
+        <Link to="/admin/divisions" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
       </div>
       <div className="row">
         <div className="col-md-12">
