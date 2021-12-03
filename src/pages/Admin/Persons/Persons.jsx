@@ -4,6 +4,7 @@ import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 import MUIDataTable from "mui-datatables";
 import { Link } from 'react-router-dom';
+import QRCode from 'qrcode.react';
 
 const Persons = () => {
 
@@ -18,6 +19,19 @@ const Persons = () => {
   useEffect(() => {
     getPersons();
   }, []);
+
+  const downloadQRCode = () => {
+    const qrCodeURL = document.getElementById('qrCodeEl')
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    console.log(qrCodeURL)
+    let aEl = document.createElement("a");
+    aEl.href = qrCodeURL;
+    aEl.download = "my_qr.png";
+    document.body.appendChild(aEl);
+    aEl.click();
+    document.body.removeChild(aEl);
+  }
 
   const columns = [
     {
@@ -50,6 +64,27 @@ const Persons = () => {
       options: {
         filter: true,
         sort: true,
+      }
+    },
+    {
+      name: "_id",
+      label: "QR Code",
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRender: (value) => {
+          return (
+            <>
+              <QRCode
+                id="qrCodeEl"
+                size={100}
+                value={value}
+                onClick={downloadQRCode}
+                className="qr-class"
+              />
+            </>
+          );
+        },
       }
     },
     {

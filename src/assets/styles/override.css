@@ -65,3 +65,19 @@
   color: white;
   background-color: #dd5899;
 }
+
+.parent-scanner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.child-scanner {
+  width: 500px;
+}
+
+.qr-class {
+  cursor: pointer;
+}
