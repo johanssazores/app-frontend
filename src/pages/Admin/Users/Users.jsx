@@ -31,7 +31,7 @@ const Users = () => {
     .then(data => {
       console.log('Success:', data);
       setIsLoading(false)
-      alert('Division Deleted')
+      alert('User Deleted')
       window.location.href="/admin/users"
     })
     .catch((error) => {
@@ -74,8 +74,24 @@ const Users = () => {
       }
     },
     {
-      name: "division",
-      label: "Division",
+      name: "district",
+      label: "District",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      name: "barangay",
+      label: "Barangay",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      name: "address",
+      label: "Address",
       options: {
         filter: true,
         sort: true,
@@ -115,8 +131,6 @@ const Users = () => {
     //   console.dir(state);
     // }
   };
-
-  
 
   return (
     <>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+// import validator from 'validator'
+import District from '../../../data/District.json'
+import Select from 'react-select';
 
 const UserEdit = () => {
 
@@ -14,16 +17,28 @@ const UserEdit = () => {
     lastName: '',
     email: '',
     role: '',
-    division: ''
+    district: '',
+    barangay: '',
+    address: ''
   })
-  const [divisions, setDivisions] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
+
+  const [barangay, setBarangay] = useState({
+    value: "",
+    label: ""
+  })
+  const [street, setStreet] = useState({
+    value: "",
+    label: ""
+  })
+
+  const [showBarangay, setShowBarangay] = useState(true)
+  const [showAddress, setshowAddress] = useState(true)
 
   useEffect(() => {
     async function getUserInfo() {
       const userGet = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/${id}`);
-      const getDivision = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/division`);
-      setDivisions(getDivision.data);
       setupdateUser(userGet.data);
       setIsLoading(false)
     }
@@ -49,7 +64,9 @@ const UserEdit = () => {
             "lastName": updateUser.lastName,
             "email": updateUser.email,
             "role": updateUser.role,
-            "division": updateUser.division
+            "district": updateUser.district,
+            "barangay" : updateUser.barangay,
+            "address" : updateUser.address
           })
         }
       )
@@ -71,6 +88,45 @@ const UserEdit = () => {
     e.persist();  
     setupdateUser({...updateUser, [e.target.name]: e.target.value});  
   }  
+
+  const selectDistrict = (e, value) => {
+    setupdateUser({...updateUser, district: value})
+    let districtF = District.filter(d => d.District === value);
+    function uniqurArray(array){
+      var a = array.concat();
+      for(var i=0; i<a.length; i++) {
+        for(var j=i+1; j<a.length; j++) {
+          if(a[i].Barangay === a[j].Barangay){
+              a.splice(j--, 1);
+          }
+        }
+      }
+      return a;
+    }
+    const barangayD = uniqurArray(districtF);
+    const mapB = barangayD.map(b => ({
+      value: b.Barangay,
+      label: b.Barangay,
+    }));
+    setBarangay(mapB)
+    setShowBarangay(false)
+  }
+
+  const handleChangeBarangay = (e) => {
+    setupdateUser({...updateUser, barangay: e.value})
+    let barangayF = District.filter(d => d.Barangay === e.value);
+    const mapS = barangayF.map(s => ({
+      value: s.Address,
+      label: s.Address,
+    }));
+    setStreet(mapS)
+    setshowAddress(false)
+  };
+
+  const handleChangeAddress = (e) => {
+    setupdateUser({...updateUser, address: e.value})
+  };
+
 
   return (
     <div className="container">
@@ -196,25 +252,68 @@ const UserEdit = () => {
 
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label>Division</label>
+                    <label>District</label>
                     <select 
                       type="text"
                       className="form-control"
-                      placeholder="Division"
-                      value={updateUser.division  || "" }
-                      onChange={onChangeUpdateUser}
+                      placeholder="District"
+                      value={updateUser.district}
+                      onChange={e => {
+                        setupdateUser({...updateUser, division: e.target.value});
+                        selectDistrict(e, e.target.value);
+                      }}
                       required
                     > 
-                       <option value="" disabled>-SELECT DIVISION-</option>
-                      {divisions && divisions.map((division) => {
-                          return (
-                            <option value={division.division} key={division._id}>{division.division}</option>
-                          )
-                      })
-                      }
+                      <option value="" disabled>-SELECT DISTRICT-</option>
+                      <option value="1st District">1st District</option>
+                      <option value="2nd District">2nd District</option>
+                      <option value="3rd District">3rd District</option>
+                      <option value="4th District">4th District</option>
+                      <option value="5th District">5th District</option>
+                      <option value="6th District">6th District</option>
                     </select>
                   </div>
                 </div>
+
+         
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>Barangay</label>
+                    <Select
+                      onChange={handleChangeBarangay}
+                      options={barangay}
+                      // value={updateUser.barangay}
+                      value={{value: updateUser.barangay, label: updateUser.barangay}}
+                      isSearchable="true"
+                      defaultValue={{ 
+                        label: updateUser.barangay , 
+                        value: updateUser.barangay 
+                      }}
+                      isDisabled={showBarangay}
+                      required
+                    />
+                  </div>
+                </div>
+        
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>Street Address</label>
+                    <Select
+                      onChange={handleChangeAddress}
+                      options={street}
+                      // value={updateUser.address}
+                      value={{value: updateUser.address, label: updateUser.address}}
+                      isSearchable="true"
+                      defaultValue={{ 
+                        label: updateUser.address, 
+                        value: updateUser.address 
+                      }}
+                      isDisabled={showAddress}
+                      required
+                    />
+                  </div>
+                </div>
+           
 
             </div>
 

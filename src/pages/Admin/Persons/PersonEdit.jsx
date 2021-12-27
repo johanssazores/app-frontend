@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+import moment from 'moment'
 
 const PersonEdit = () => {
   let {id} = useParams();
@@ -13,6 +16,7 @@ const [updatePerson, setUpdatePerson] = useState({
   birthDay : "",
   birthMonth : "",
   birthYear : "",
+  dateOfBirth: "",
   address : "",
   maritalStatus : "",
   numberOfChildren : "",
@@ -118,10 +122,15 @@ useEffect(() => {
     setUpdatePerson({...updatePerson, [e.target.name]: e.target.value});  
   }  
 
+  const dateOfBirth = (date) => {
+    const dob = (moment(date).format("YYYY-MM-DD"))
+    setUpdatePerson({...updatePerson, dateOfBirth: dob});
+  }
+
   return (
     <div className="container">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Add Person</h1>
+        <h1 className="h3 mb-0 text-gray-800">Edit Constituents </h1>
         <Link to="/admin/persons" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
       </div>
       <div className="row">
@@ -187,7 +196,7 @@ useEffect(() => {
                   </div>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <div className="form-group">
                     <label>Sex Assigned at Birth</label>
                     <select 
@@ -205,94 +214,19 @@ useEffect(() => {
                   </div>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <div className="form-group">
-                    <label>Birth Day</label>
-                    <select 
-                      type="text"
-                      className="form-control"
-                      value={updatePerson.birthDay || ""}
-                      onChange={onChangeUpdatePerson}
-                      required
-                    > 
-                        <option value="" disabled>-SELECT DAY-</option>
-                        <option value="01">1</option>
-                        <option value="02">2</option>
-                        <option value="03">3</option>
-                        <option value="04">4</option>
-                        <option value="05">5</option>
-                        <option value="06">6</option>
-                        <option value="07">7</option>
-                        <option value="08">8</option>
-                        <option value="09">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                    </select>
+                    <Datetime 
+                      timeFormat={false}
+                      dateFormat="DD-MM-YYYY"
+                      onChange={dateOfBirth}
+                      value={updatePerson.dateOfBirth}
+                      closeOnSelect={true}
+                    />
                   </div>
                 </div>
 
-                <div className="col-md-3">
-                  <div className="form-group">
-                    <label>Birth Month</label>
-                    <select 
-                      type="text"
-                      className="form-control"
-                      placeholder="Sex Assigned at Birth"
-                      value={updatePerson.birthMonth || ""}
-                      onChange={onChangeUpdatePerson}
-                      required
-                    > 
-                       <option value="" disabled>-SELECT MONTH-</option>
-                       <option value="01">Jan</option>
-                        <option value="02">Feb</option>
-                        <option value="03">Mar</option>
-                        <option value="04">Apr</option>
-                        <option value="05">May</option>
-                        <option value="06">Jun</option>
-                        <option value="07">Jul</option>
-                        <option value="08">Aug</option>
-                        <option value="09">Sep</option>
-                        <option value="10">Oct</option>
-                        <option value="11">Nov</option>
-                        <option value="12">Dec</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="form-group">
-                    <label>Birth Year</label>
-                    <input 
-                      type="text"
-                      className="form-control"
-                      placeholder="Birth Year"
-                      value={updatePerson.birthYear || ""}
-                      onChange={onChangeUpdatePerson}
-                      maxLength={4}
-                      required
-                    /> 
-                  </div>
-                </div>
+              
 
                 <div className="col-md-4">
                   <div className="form-group">
@@ -642,7 +576,7 @@ useEffect(() => {
 
             </div>
 
-            <button type="submit" className="btn btn-primary">Add Person</button>
+            <button type="submit" className="btn btn-primary">Save</button>
 
           </form>
         </div>

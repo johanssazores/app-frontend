@@ -110,7 +110,7 @@ function DashboardContent(props) {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Thesis App
+              1Kyusi
             </Typography>
 
             {/* <IconButton color="inherit">

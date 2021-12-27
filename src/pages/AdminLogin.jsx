@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { setUserSession } from '../utils/Common'
+import Logo from '../assets/images/logo.png'
 
 const Login = (props) => {
 
@@ -40,7 +41,7 @@ const Login = (props) => {
                       alignItems: "center",
                       margin: "auto"
                     }}>
-                      <img style={{width: "200px", marginTop: "50px"}} src="http://cdn.onlinewebfonts.com/svg/img_337531.png" alt="Thesis" />
+                      <img style={{width: "200px", marginTop: "50px"}} src={Logo} alt="Thesis" />
                     </div>
                   </div>
                   <div className="col-lg-6">

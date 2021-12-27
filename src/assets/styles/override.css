@@ -9,7 +9,7 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.75);
   border-color: #ddd;
-  color: #003055;
+  color: #21576D;
   z-index: 999999;
 }
 
@@ -36,7 +36,7 @@
   border-radius: 14px;
   text-decoration: none;
   color: white;
-  background-color: #0a7cff;
+  background-color: #21576D;
 }
 
 .button-table-view:hover {
@@ -45,7 +45,7 @@
   border-radius: 14px;
   text-decoration: none;
   color: white;
-  background-color: #2375d3;
+  background-color: #21576D;
 }
 
 .button-table-delete {
@@ -54,7 +54,7 @@
   border-radius: 14px;
   text-decoration: none;
   color: white;
-  background-color: #f2abce;
+  background-color: #e51b4a;
 }
 
 .button-table-delete:hover {
@@ -80,4 +80,10 @@
 
 .qr-class {
   cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #21576D;
+  border-color: #21576D;
 }

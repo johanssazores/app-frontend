@@ -9,10 +9,8 @@ import PeopleIcon from '@mui/icons-material/People';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
 import Divider from '@mui/material/Divider';
 import { removeUserSession, getUser } from '../utils/Common'
-
 
 const Sidebar = () => {
 
@@ -20,7 +18,6 @@ const Sidebar = () => {
   const userRole = userDetail.role;
 
   const [view, setView] = useState(false)
-
 
   useEffect(() => {
     if(userRole === 'ADMINISTRATOR'){
@@ -52,13 +49,13 @@ const Sidebar = () => {
 
       <ListItem
       button
-      key="Persons"
+      key="Constituents"
       component={NavLink} to="/admin/persons"
       >
         <ListItemIcon>
           <PeopleOutlineIcon />
         </ListItemIcon>
-        <ListItemText primary="Persons" />
+        <ListItemText primary="Constituents" />
       </ListItem>
 
       <ListItem
@@ -72,24 +69,6 @@ const Sidebar = () => {
         <ListItemText primary="Movements Tracker" />
       </ListItem>
 
-      {view === true
-        ? 
-        (
-          <>
-        <ListItem
-        button
-        key="Division"
-        component={NavLink} to="/admin/divisions"
-        >
-          <ListItemIcon>
-            <LayersIcon />
-          </ListItemIcon>
-          <ListItemText primary="Divisions" />
-        </ListItem>
-          </>
-        )
-        : ""
-      }
 
     </div>
     <Divider />
@@ -133,93 +112,3 @@ const Sidebar = () => {
 }
 
 export default Sidebar
-
-
-
-// export const mainListItems  =  (
-
-//   <div>
-//     <ListItem
-//     button
-//     key="Dashboard"
-//     component={NavLink} to="/admin/dashboard"
-//     >
-//       <ListItemIcon>
-//         <BarChartIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Dashboard" />
-//     </ListItem>
-
-//     <ListItem
-//     button
-//     key="Persons"
-//     component={NavLink} to="/admin/persons"
-//     >
-//       <ListItemIcon>
-//         <PeopleIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Persons" />
-//     </ListItem>
-
-//     {userDetail && (userDetail.role === "Admin") 
-//       ? 
-//       (
-//         <>
-//       <ListItem
-//       button
-//       key="Division"
-//       component={NavLink} to="/admin/divisions"
-//       >
-//         <ListItemIcon>
-//           <LayersIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Divisions" />
-//       </ListItem>
-//         </>
-//       )
-//       : ""
-//     }
-
-
-
-//   </div>
-// );
-
-
-// export const secondaryListItems = (
-//   <div>
-
-//     {userDetail && (userDetail.role === "Admin") 
-//       ? 
-//       (
-//         <>
-//         <ListSubheader inset>Admin</ListSubheader>
-
-//         <ListItem
-//         button
-//         key="Staffs"
-//         component={NavLink} to="/admin/users"
-//         >
-//           <ListItemIcon>
-//             <PeopleIcon />
-//           </ListItemIcon>
-//           <ListItemText primary="Staffs" />
-//         </ListItem>
-//         </>
-//       )
-//       : ""
-//     }
-
-
-//     <ListSubheader inset></ListSubheader>
-//     <ListItem
-//     button
-//     onClick={handleLogout}
-//     >
-//       <ListItemIcon>
-//         <LogoutIcon />
-//       </ListItemIcon>
-//       <ListItemText primary="Logout" />
-//     </ListItem>
-//   </div>
-// );

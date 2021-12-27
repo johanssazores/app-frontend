@@ -126,12 +126,12 @@ const Persons = () => {
     <>
     <div className="container-fluid">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Persons</h1>
-        <Link to="/admin/person-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Person</Link>
+        <h1 className="h3 mb-0 text-gray-800">Constituents </h1>
+        <Link to="/admin/person-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Constituents </Link>
       </div>
       <ThemeProvider theme={createTheme()}>
         <MUIDataTable
-          title={"Person List"}
+          title={"Constituents List"}
           data={persons}
           columns={columns}
           options={options}

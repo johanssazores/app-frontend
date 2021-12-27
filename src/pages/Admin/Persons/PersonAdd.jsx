@@ -1,50 +1,69 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+import moment from 'moment'
+import District from '../../../data/District.json'
+import Select from 'react-select';
 
 const PersonAdd = () => {
 
 const [newPerson, setNewPerson] = useState({
-  division : "",
-  firstName : "",
-  lastName : "",
-  sex : "",
-  birthDay : "",
-  birthMonth : "",
-  birthYear : "",
-  address : "",
-  maritalStatus : "",
-  numberOfChildren : "",
-  citizenship : "",
-  religion : "",
-  phoneNumber : "", 
-  email : "",
-  highestAttainedEducation : "",
-  statusEducation : "", 
-  schoolEducation : "", 
-  courseEducation : "", 
-  pregnantMedical : "", 
-  pregnantMonthsMedical : "", 
-  bloodTypeMedical : "", 
-  withMaintenanceMedical : "", 
-  onGoingMedicationMedical : "", 
-  nameOfMedicineMedical : "", 
-  lastHospitalMedical : "",
-  password : "",
-  passwordVerify : ""
+  firstName: "",
+  lastName: "",
+  sex: "",
+  dateOfBirth: "",
+  district: "",
+  barangay: "",
+  streetName: "",
+  houseNumber: "",
+  subdivision: "",
+  maritalStatus: "",
+  citizenship: "",
+  phoneNumber: "",
+  religion: "",
+  noOfChildren: "",
+  email: "",
+  highestAttainedEducation: "",
+  statusEducation: "",
+  courseEducation: "",
+  schoolEducation: "",
+  bloodType: "",
+  pregnant: "",
+  monthsPregnant: "",
+  withMaintenance: "",
+  onGoingMedication:"",
+  nameOfMedicine: "",
+  oftenCheckUp: "",
+  lastHospitalVisit: "",
+  smoking: "",
+  packsPerDay: "",
+  drinking: "",
+  frequencyDrinking: "",
+  conditionDisease: "",
+  password: "",
+  passwordVerify : "",
 })
-const [divisions, setDivisions] = useState([]);
+
 const [isLoading, setIsLoading] = useState(false);
 
-async function getDivision() {
-  const getDivision = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/division`);
-  setDivisions(getDivision.data);
-  setIsLoading(false)
-}
+const [barangay, setBarangay] = useState({
+  value: "",
+  label: ""
+})
+const [street, setStreet] = useState({
+  value: "",
+  label: ""
+})
 
-useEffect(() => {
-  getDivision();
-}, []);
+const [showBarangay, setShowBarangay] = useState(true)
+const [showAddress, setshowAddress] = useState(true)
+
+const [female, setFemale] = useState(true)
+const [pregnant, setPregnant] = useState(true)
+const [smoke, setSmoke] = useState(true)
+const [drink, setDrink] = useState(true)
 
   const SubmitAddPerson = async e => {
     e.preventDefault();
@@ -58,31 +77,40 @@ useEffect(() => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify({
-              "division" : newPerson.division,
-              "firstName" : newPerson.firstName,
-              "lastName" : newPerson.lastName,
-              "sex" : newPerson.sex,
-              "dateOfBirth" : `${newPerson.birthDay}-${newPerson.birthMonth}-${newPerson.birthYear}`,
-              "address" : newPerson.address,
-              "maritalStatus" : newPerson.maritalStatus,
-              "numberOfChildren" : newPerson.numberOfChildren,
-              "citizenship" : newPerson.citizenship,
-              "religion" : newPerson.religion,
-              "phoneNumber" : newPerson.phoneNumber, 
-              "email" : newPerson.email,
-              "highestAttainedEducation" : newPerson.highestAttainedEducation,
-              "statusEducation" : newPerson.statusEducation, 
-              "schoolEducation" : newPerson.schoolEducation, 
-              "courseEducation" : newPerson.courseEducation, 
-              "pregnantMedical" : newPerson.pregnantMedical, 
-              "pregnantMonthsMedical" : newPerson.pregnantMonthsMedical, 
-              "bloodTypeMedical" : newPerson.bloodTypeMedical, 
-              "withMaintenanceMedical" : newPerson.withMaintenanceMedical, 
-              "onGoingMedicationMedical" : newPerson.onGoingMedicationMedical, 
-              "nameOfMedicineMedical" : newPerson.nameOfMedicineMedical, 
-              "lastHospitalMedical" : newPerson.lastHospitalMedical,
-              "password" : newPerson.password,
-              "passwordVerify" : newPerson.passwordVerify
+              "firstName": newPerson.firstName,
+              "lastName": newPerson.lastName,
+              "sex": newPerson.sex,
+              "dateOfBirth": newPerson.dateOfBirth,
+              "district": newPerson.district,
+              "barangay": newPerson.barangay,
+              "streetName": newPerson.streetName,
+              "houseNumber": newPerson.houseNumber,
+              "subdivision": newPerson.subdivision,
+              "maritalStatus": newPerson.maritalStatus,
+              "citizenship": newPerson.citizenship,
+              "phoneNumber": newPerson.phoneNumber,
+              "religion": newPerson.religion,
+              "noOfChildren": newPerson.noOfChildren,
+              "email": newPerson.email,
+              "highestAttainedEducation": newPerson.highestAttainedEducation,
+              "statusEducation": newPerson.statusEducation,
+              "courseEducation": newPerson.courseEducation,
+              "schoolEducation": newPerson.schoolEducation,
+              "bloodType": newPerson.bloodType,
+              "pregnant": newPerson.pregnant,
+              "monthsPregnant": newPerson.monthsPregnant,
+              "withMaintenance": newPerson.withMaintenance,
+              "onGoingMedication":newPerson.onGoingMedication,
+              "nameOfMedicine": newPerson.nameOfMedicine,
+              "oftenCheckUp": newPerson.oftenCheckUp,
+              "lastHospitalVisit": newPerson.lastHospitalVisit,
+              "smoking": newPerson.smoking,
+              "packsPerDay": newPerson.packsPerDay,
+              "drinking": newPerson.drinking,
+              "frequencyDrinking": newPerson.frequencyDrinking,
+              "conditionDisease": newPerson.conditionDisease,
+              "password": newPerson.password,
+              "passwordVerify" : newPerson.passwordVerify,
             })
           }
         )
@@ -102,10 +130,89 @@ useEffect(() => {
     }
   }
 
+  const dateOfBirth = (date) => {
+    const dob = (moment(date).format("DD-MM-YYYY"))
+    setNewPerson({...newPerson, dateOfBirth: dob});
+  }
+
+  const selectDistrict = (e, value) => {
+    setNewPerson({...newPerson, district: value})
+    let districtF = District.filter(d => d.District === value);
+    function uniqurArray(array){
+      var a = array.concat();
+      for(var i=0; i<a.length; i++) {
+        for(var j=i+1; j<a.length; j++) {
+          if(a[i].Barangay === a[j].Barangay){
+              a.splice(j--, 1);
+          }
+        }
+      }
+      return a;
+    }
+    const barangayD = uniqurArray(districtF);
+    const mapB = barangayD.map(b => ({
+      value: b.Barangay,
+      label: b.Barangay,
+    }));
+    setBarangay(mapB)
+    setShowBarangay(false)
+  }
+
+  const selectGender = (e, value) => {
+    if(value === 'Female') {
+      setFemale(false)
+    }
+    if(value === 'Male') {
+      setFemale(true)
+    }
+  }
+
+  const selectPregnant = (e, value) => {
+    if(value === 'Yes') {
+      setPregnant(false)
+    }
+    if(value === 'No') {
+      setPregnant(true)
+    }
+  }
+
+  const selectSmoking = (e, value) => {
+    if(value === 'Yes') {
+      setSmoke(false)
+    }
+    if(value === 'No') {
+      setSmoke(true)
+    }
+  }
+
+  const selectDrinking = (e, value) => {
+    if(value === 'Yes') {
+      setDrink(false)
+    }
+    if(value === 'No') {
+      setDrink(true)
+    }
+  }
+
+  const handleChangeBarangay = (e) => {
+    setNewPerson({...newPerson, barangay: e.value})
+    let barangayF = District.filter(d => d.Barangay === e.value);
+    const mapS = barangayF.map(s => ({
+      value: s.Address,
+      label: s.Address,
+    }));
+    setStreet(mapS)
+    setshowAddress(false)
+  };
+
+  const handleChangeAddress = (e) => {
+    setNewPerson({...newPerson, streetName: e.value})
+  };
+
   return (
     <div className="container">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Add Person</h1>
+        <h1 className="h3 mb-0 text-gray-800">Add Constituents</h1>
         <Link to="/admin/persons" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
       </div>
       <div className="row">
@@ -128,7 +235,9 @@ useEffect(() => {
                       placeholder="First Name"
                       name="firstName"
                       value={newPerson.firstName}
-                      onChange={e => setNewPerson({...newPerson, firstName: e.target.value})}
+                      onChange={e => 
+                        setNewPerson({...newPerson, firstName: e.target.value})
+                      }
                       required
                     />
                   </div>
@@ -151,35 +260,16 @@ useEffect(() => {
 
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label>Division</label>
-                    <select 
-                      type="text"
-                      className="form-control"
-                      placeholder="Division"
-                      value={newPerson.division}
-                      onChange={e => setNewPerson({...newPerson, division: e.target.value})}
-                      required
-                    > 
-                       <option value="" disabled>-SELECT DIVISION-</option>
-                      {divisions && divisions.map((division) => {
-                          return (
-                            <option value={division.division} key={division._id}>{division.division}</option>
-                          )
-                      })
-                      }
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="form-group">
                     <label>Sex Assigned at Birth</label>
                     <select 
                       type="text"
                       className="form-control"
                       placeholder="Sex Assigned at Birth"
                       value={newPerson.sex}
-                      onChange={e => setNewPerson({...newPerson, sex: e.target.value})}
+                      onChange={e => {
+                        setNewPerson({...newPerson, sex: e.target.value});
+                        selectGender(e, e.target.value);
+                      }}
                       required
                     > 
                        <option value="" disabled>-SELECT SEX-</option>
@@ -189,107 +279,38 @@ useEffect(() => {
                   </div>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <div className="form-group">
-                    <label>Birth Day</label>
-                    <select 
-                      type="text"
-                      className="form-control"
-                      value={newPerson.birthDay}
-                      onChange={e => setNewPerson({...newPerson, birthDay: e.target.value})}
-                      required
-                    > 
-                        <option value="" disabled>-SELECT DAY-</option>
-                        <option value="01">1</option>
-                        <option value="02">2</option>
-                        <option value="03">3</option>
-                        <option value="04">4</option>
-                        <option value="05">5</option>
-                        <option value="06">6</option>
-                        <option value="07">7</option>
-                        <option value="08">8</option>
-                        <option value="09">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="form-group">
-                    <label>Birth Month</label>
-                    <select 
-                      type="text"
-                      className="form-control"
-                      placeholder="Sex Assigned at Birth"
-                      value={newPerson.birthMonth}
-                      onChange={e => setNewPerson({...newPerson, birthMonth: e.target.value})}
-                      required
-                    > 
-                       <option value="" disabled>-SELECT MONTH-</option>
-                       <option value="01">Jan</option>
-                        <option value="02">Feb</option>
-                        <option value="03">Mar</option>
-                        <option value="04">Apr</option>
-                        <option value="05">May</option>
-                        <option value="06">Jun</option>
-                        <option value="07">Jul</option>
-                        <option value="08">Aug</option>
-                        <option value="09">Sep</option>
-                        <option value="10">Oct</option>
-                        <option value="11">Nov</option>
-                        <option value="12">Dec</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="form-group">
-                    <label>Birth Year</label>
-                    <input 
-                      type="text"
-                      className="form-control"
-                      placeholder="Birth Year"
-                      value={newPerson.birthYear}
-                      onChange={e => setNewPerson({...newPerson, birthYear: e.target.value})}
-                      maxLength={4}
-                      required
-                    /> 
+                    <label>Date Of Birth</label>
+                    <Datetime 
+                      timeFormat={false}
+                      dateFormat="DD-MM-YYYY"
+                      onChange={dateOfBirth}
+                      value={newPerson.dateOfBirth}
+                      closeOnSelect={true}
+                    />
                   </div>
                 </div>
 
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label>Martital Status</label>
-                    <input 
+                  <label>Martital Status</label>
+                    <select 
                       type="text"
                       className="form-control"
-                      placeholder="Martital Status"
+                      placeholder="Sex Assigned at Birth"
                       name="maritalStatus"
                       value={newPerson.maritalStatus}
                       onChange={e => setNewPerson({...newPerson, maritalStatus: e.target.value})}
                       required
-                    />
+                    > 
+                       <option value="" disabled>-SELECT STATUS-</option>
+                       <option value="Single">Single</option>
+                       <option value="Married">Married</option>
+                       <option value="Widowed">Widowed</option>
+                       <option value="Separated">Separated</option>
+                       <option value="Live-in">Live-in</option>
+                    </select>
                   </div>
                 </div>
 
@@ -310,21 +331,6 @@ useEffect(() => {
                 
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label>Address</label>
-                    <input 
-                      type="text"
-                      className="form-control"
-                      placeholder="Address"
-                      name="address"
-                      value={newPerson.address}
-                      onChange={e => setNewPerson({...newPerson, address: e.target.value})}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="col-md-4">
-                  <div className="form-group">
                     <label>Phone number</label>
                     <input 
                       type="text"
@@ -333,6 +339,7 @@ useEffect(() => {
                       name="phoneNumber"
                       value={newPerson.phoneNumber}
                       onChange={e => setNewPerson({...newPerson, phoneNumber: e.target.value})}
+                      pattern="^-?[0-9]\d*\.?\d*$"
                       required
                     />
                   </div>
@@ -360,10 +367,9 @@ useEffect(() => {
                       type="number"
                       className="form-control"
                       placeholder="No. Children"
-                      name="numberOfChildren"
-                      value={newPerson.numberOfChildren}
-                      onChange={e => setNewPerson({...newPerson, numberOfChildren: e.target.value})}
-                      required
+                      name="noOfChildren,"
+                      value={newPerson.noOfChildren}
+                      onChange={e => setNewPerson({...newPerson, noOfChildren: e.target.value})}
                     />
                   </div>
                 </div>
@@ -413,6 +419,85 @@ useEffect(() => {
                   </div>
                 </div>
 
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>District</label>
+                    <select 
+                      type="text"
+                      className="form-control"
+                      placeholder="District"
+                      value={newPerson.district}
+                      onChange={e => {
+                        setNewPerson({...newPerson, district: e.target.value});
+                        selectDistrict(e, e.target.value);
+                      }}
+                      required
+                    > 
+                      <option value="" disabled>-SELECT DISTRICT-</option>
+                      <option value="1st District">1st District</option>
+                      <option value="2nd District">2nd District</option>
+                      <option value="3rd District">3rd District</option>
+                      <option value="4th District">4th District</option>
+                      <option value="5th District">5th District</option>
+                      <option value="6th District">6th District</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>Barangay</label>
+                    <Select
+                      onChange={handleChangeBarangay}
+                      options={barangay}
+                      isSearchable="true"
+                      isDisabled={showBarangay}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>Street Name</label>
+                    <Select
+                      onChange={handleChangeAddress}
+                      options={street}
+                      isSearchable="true"
+                      isDisabled={showAddress}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>House Number / Building Name</label>
+                    <input 
+                      type="text"
+                      className="form-control"
+                      name="houseNumber"
+                      value={newPerson.houseNumber}
+                      onChange={e => setNewPerson({...newPerson, houseNumber: e.target.value})}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>Subdivision</label>
+                    <input 
+                      type="text"
+                      className="form-control"
+                      name="subdivision"
+                      value={newPerson.subdivision}
+                      onChange={e => setNewPerson({...newPerson, subdivision: e.target.value})}
+                      required
+                    />
+                  </div>
+                </div>
+
             </div>
 
             <hr/>
@@ -433,11 +518,12 @@ useEffect(() => {
                       onChange={e => setNewPerson({...newPerson, highestAttainedEducation: e.target.value})}
                       required
                     > 
-                      <option value="" disabled>- SELECT HIGHEST ATTAINED -</option>
-                      <option value="Post Graduate">Post Graduate</option>
-                      <option value="College">College</option>
+                      <option value="" disabled>- SELECT HIGHEST ATTAINED -</option>         
                       <option value="High School">High School</option>
                       <option value="Elementary">Elementary</option>
+                      <option value="Vocational">Vocational</option>
+                      <option value="College">College</option>
+                      <option value="Post Graduate">Post Graduate</option>
                     </select>
                   </div>
                 </div>
@@ -454,9 +540,10 @@ useEffect(() => {
                       required
                     > 
                       <option value="" disabled>- SELECT EDUCATION STATUS -</option>
-                      <option value="Drop Out">Drop Out</option>
-                      <option value="On Going">On Going</option>
+                      <option value="Drop-out">Drop Out</option>
+                      <option value="On-going">On Going</option>
                       <option value="Graduate">Graduate </option>
+                      <option value="On-leave">On leave </option>
                     </select>
                   </div>
                 </div>
@@ -503,45 +590,13 @@ useEffect(() => {
 
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Pregnant:</label>
-                    <select 
-                      type="text"
-                      className="form-control"
-                      name="role"
-                      value={newPerson.pregnantMedical}
-                      onChange={e => setNewPerson({...newPerson, pregnantMedical: e.target.value})}
-                      required
-                    >
-                      <option value="" disabled>- SELECT -</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label>If yes how many months: (Optional)</label>
-                    <input 
-                      type="number"
-                      className="form-control"
-                      name="pregnantMonthsMedical"
-                      placeholder="Months Pregnant"
-                      value={newPerson.pregnantMonthsMedical}
-                      onChange={e => setNewPerson({...newPerson, pregnantMonthsMedical: e.target.value})}
-                    />
-                  </div>
-                </div>
-
-                <div className="col-md-6">
-                  <div className="form-group">
                     <label>Blood Type:</label>
                     <select 
                       type="text"
                       className="form-control"
-                      name="role"
-                      value={newPerson.bloodTypeMedical}
-                      onChange={e => setNewPerson({...newPerson, bloodTypeMedical: e.target.value})}
+                      name="bloodType"
+                      value={newPerson.bloodType}
+                      onChange={e => setNewPerson({...newPerson, bloodType: e.target.value})}
                       required
                     >
                       <option value="" disabled>- SELECT BLOOD TYPE -</option>
@@ -557,21 +612,134 @@ useEffect(() => {
                   </div>
                 </div>
 
-
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>With maintenance:</label>
+                    <label>How often do you get a health checkup?  </label>
                     <select 
                       type="text"
                       className="form-control"
-                      name="role"
-                      value={newPerson.withMaintenanceMedical}
-                      onChange={e => setNewPerson({...newPerson, withMaintenanceMedical: e.target.value})}
+                      name="oftenCheckUp"
+                      value={newPerson.oftenCheckUp}
+                      onChange={e => setNewPerson({...newPerson, oftenCheckUp: e.target.value})}
+                      required
+                    >
+                      <option value="" disabled>- SELECT -</option>
+                      <option value="Once in 3 months">Once in 3 months</option>
+                      <option value="Once in 6 months">Once in 6 months</option>
+                      <option value="Once a year">Once a year</option>
+                      <option value="Only when needed">Only when needed</option>
+                      <option value="Never">Never</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Pregnant:</label>
+                    <select 
+                      type="text"
+                      className="form-control"
+                      name="pregnant"
+                      value={newPerson.pregnant}
+                      onChange={e => {
+                        setNewPerson({...newPerson, pregnant: e.target.value});
+                        selectPregnant(e, e.target.value);
+                      }}
+                      disabled={female}
+                    >
+                      <option value="" disabled>- SELECT -</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>If yes how many months:</label>
+                    <input 
+                      type="number"
+                      className="form-control"
+                      name="monthsPregnant"
+                      value={newPerson.monthsPregnant}
+                      disabled={pregnant}
+                      onChange={e => setNewPerson({...newPerson, monthsPregnant: e.target.value})}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Do you Smoke? </label>
+                    <select 
+                      type="text"
+                      className="form-control"
+                      name="smoking"
+                      value={newPerson.smoking}
+                      onChange={e => {
+                        setNewPerson({...newPerson, smoking: e.target.value});
+                        selectSmoking(e, e.target.value);
+                      }}
                       required
                     >
                       <option value="" disabled>- SELECT -</option>
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Packs per day:</label>
+                    <input 
+                      type="number"
+                      className="form-control"
+                      name="packsPerDay"
+                      value={newPerson.packsPerDay}
+                      onChange={e => setNewPerson({...newPerson, packsPerDay: e.target.value})}
+                      disabled={smoke}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Do you Drink? </label>
+                    <select 
+                      type="text"
+                      className="form-control"
+                      name="drinking"
+                      value={newPerson.drinking}
+                      onChange={e => {
+                        setNewPerson({...newPerson, drinking: e.target.value});
+                        selectDrinking(e, e.target.value);
+                      }}
+                      required
+                    >
+                      <option value="" disabled>- SELECT -</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Frequency:</label>
+                    <select 
+                      type="text"
+                      className="form-control"
+                      name="frequencyDrinking"
+                      value={newPerson.frequencyDrinking}
+                      onChange={e => setNewPerson({...newPerson, frequencyDrinking: e.target.value})}
+                      disabled={drink}
+                    >
+                      <option value="" disabled>- SELECT -</option>
+                      <option value="Daily">Daily</option>
+                      <option value="Weekly">Weekly</option>
+                      <option value="Monthly">Monthly</option>
+                      <option value="Occasionally">Occasionally</option>
                     </select>
                   </div>
                 </div>
@@ -582,9 +750,9 @@ useEffect(() => {
                     <select 
                       type="text"
                       className="form-control"
-                      name="role"
-                      value={newPerson.onGoingMedicationMedical}
-                      onChange={e => setNewPerson({...newPerson, onGoingMedicationMedical: e.target.value})}
+                      name="onGoingMedication"
+                      value={newPerson.onGoingMedication}
+                      onChange={e => setNewPerson({...newPerson, onGoingMedication: e.target.value})}
                       required
                     >
                       <option value="" disabled>- SELECT -</option>
@@ -596,14 +764,32 @@ useEffect(() => {
 
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Name of Medicine: (Optional)</label>
+                    <label>With maintenance:</label>
+                    <select 
+                      type="text"
+                      className="form-control"
+                      name="withMaintenance"
+                      value={newPerson.withMaintenance}
+                      onChange={e => setNewPerson({...newPerson, withMaintenance: e.target.value})}
+                      required
+                    >
+                      <option value="" disabled>- SELECT -</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Name of Medicine/s:</label>
                     <input 
                       type="text"
                       className="form-control"
                       placeholder="Name of Medicine"
-                      name="nameOfMedicineMedical"
-                      value={newPerson.nameOfMedicineMedical}
-                      onChange={e => setNewPerson({...newPerson, nameOfMedicineMedical: e.target.value})}
+                      name="nameOfMedicine"
+                      value={newPerson.nameOfMedicine}
+                      onChange={e => setNewPerson({...newPerson, nameOfMedicine: e.target.value})}
                       required
                     />
                   </div>
@@ -616,17 +802,38 @@ useEffect(() => {
                       type="text"
                       className="form-control"
                       placeholder="Last Hospital Visit/Checkup?"
-                      name="lastHospitalMedical"
-                      value={newPerson.lastHospitalMedical}
-                      onChange={e => setNewPerson({...newPerson, lastHospitalMedical: e.target.value})}
+                      name="lastHospitalVisit"
+                      value={newPerson.lastHospitalVisit}
+                      onChange={e => setNewPerson({...newPerson, lastHospitalVisit: e.target.value})}
                       required
                     />
                   </div>
                 </div>
 
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Do you have any hereditary conditions/diseases? </label>
+                    <select 
+                      type="text"
+                      className="form-control"
+                      name="conditionDisease"
+                      value={newPerson.conditionDisease}
+                      onChange={e => setNewPerson({...newPerson, conditionDisease: e.target.value})}
+                      required
+                    >
+                      <option value="" disabled>- SELECT -</option>
+                      <option value="High blood Pressure">High blood Pressure</option>
+                      <option value="Diabetes">Diabetes</option>
+                      <option value="Asthma">Asthma</option>
+                      <option value="Tuberculosis">Tuberculosis</option>
+                      <option value="Others">Others</option>
+                    </select>
+                  </div>
+                </div>
+
             </div>
 
-            <button type="submit" className="btn btn-primary">Add Person</button>
+            <button type="submit" className="btn btn-primary">Save</button>
 
           </form>
         </div>

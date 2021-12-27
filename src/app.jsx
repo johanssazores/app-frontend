@@ -17,10 +17,6 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminSettings from './pages/Admin/AdminSettings';
 
-import Divisions from './pages/Admin/Divisions/Divisions';
-import DivisionAdd from './pages/Admin/Divisions/DivisionAdd';
-import DivisionEdit from './pages/Admin/Divisions/DivisionEdit';
-
 import Users from './pages/Admin/Users/Users'
 import UserAdd from './pages/Admin/Users/UserAdd'
 import UserEdit from './pages/Admin/Users/UserEdit'
@@ -73,9 +69,6 @@ const App = () => {
         <PrivateRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <PrivateRoute exact path="/admin//settings" component={AdminSettings} />
 
-        <PrivateRoute exact path="/admin/divisions" component={Divisions} />
-        <PrivateRoute exact path="/admin/division-add" component={DivisionAdd} />
-        <PrivateRoute exact path="/admin/division/:id" component={DivisionEdit} />
 
         <PrivateRoute exact path="/admin/users" component={Users} />
         <PrivateRoute exact path="/admin/user-add" component={UserAdd} />

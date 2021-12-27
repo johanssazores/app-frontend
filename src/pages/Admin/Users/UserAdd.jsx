@@ -1,57 +1,73 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import validator from 'validator'
+import District from '../../../data/District.json'
+import Select from 'react-select';
 
 const UserAdd = () => {
 
-const [newUser, setNewUser] = useState({
-  username: "",
-  password: "",
-  passwordVerify: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  role: "",
-  division: ""
-})
-const [divisions, setDivisions] = useState([]);
-const [isLoading, setIsLoading] = useState(false);
+  const [newUser, setNewUser] = useState({
+    username: "",
+    password: "",
+    passwordVerify: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: "",
+    district: "",
+    barangay: "",
+    address: ""
+  })
 
-async function getDivision() {
-  const getDivision = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/division`);
-  setDivisions(getDivision.data);
-  setIsLoading(false)
-}
+  const [isLoading, setIsLoading] = useState(false);
 
-useEffect(() => {
-  getDivision();
-}, []);
+  const [barangay, setBarangay] = useState({
+    value: "",
+    label: ""
+  })
+  const [street, setStreet] = useState({
+    value: "",
+    label: ""
+  })
+
+  const [showBarangay, setShowBarangay] = useState(true)
+  const [showAddress, setshowAddress] = useState(true)
 
   const SubmitAddUser = async e => {
     e.preventDefault();
     console.log(newUser)
     try {
       setIsLoading(true)
-      const saveUser = await axios.request(
-        `${process.env.REACT_APP_BACKEND_URL}/user/create`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          data: JSON.stringify({
-            "username": newUser.username,
-            "password": newUser.password,
-            "passwordVerify": newUser.passwordVerify,
-            "firstName": newUser.firstName,
-            "lastName": newUser.lastName,
-            "email": newUser.email,
-            "role": newUser.role,
-            "division": newUser.division
-          })
-        }
-      )
-      console.log(saveUser.data)
-      alert('User Added')
-      window.location.href="/admin/users"
+      if (
+        validator.isEmpty(newUser.barangay) || validator.isEmpty(newUser.address)
+      ) {
+        alert('Please enter all fields');
+      } else {
+          const saveUser = await axios.request(
+            `${process.env.REACT_APP_BACKEND_URL}/user/create`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              data: JSON.stringify({
+                "username": newUser.username,
+                "password": newUser.password,
+                "passwordVerify": newUser.passwordVerify,
+                "firstName": newUser.firstName,
+                "lastName": newUser.lastName,
+                "email": newUser.email,
+                "role": newUser.role,
+                "district": newUser.district,
+                "barangay": newUser.barangay,
+                "address": newUser.address
+              })
+            }
+          )
+          console.log(saveUser.data)
+          alert('User Added')
+          window.location.href="/admin/users"
+      }
+
     }
     catch(err) {
       console.error(err)
@@ -61,6 +77,45 @@ useEffect(() => {
     }
   }
 
+  const selectDistrict = (e, value) => {
+    setNewUser({...newUser, district: value})
+    let districtF = District.filter(d => d.District === value);
+    function uniqurArray(array){
+      var a = array.concat();
+      for(var i=0; i<a.length; i++) {
+        for(var j=i+1; j<a.length; j++) {
+          if(a[i].Barangay === a[j].Barangay){
+              a.splice(j--, 1);
+          }
+        }
+      }
+      return a;
+    }
+    const barangayD = uniqurArray(districtF);
+    const mapB = barangayD.map(b => ({
+      value: b.Barangay,
+      label: b.Barangay,
+    }));
+    setBarangay(mapB)
+    setShowBarangay(false)
+  }
+
+  const handleChangeBarangay = (e) => {
+    setNewUser({...newUser, barangay: e.value})
+    let barangayF = District.filter(d => d.Barangay === e.value);
+    const mapS = barangayF.map(s => ({
+      value: s.Address,
+      label: s.Address,
+    }));
+    setStreet(mapS)
+    setshowAddress(false)
+  };
+
+  const handleChangeAddress = (e) => {
+    setNewUser({...newUser, address: e.value})
+  };
+
+  
   return (
     <div className="container">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -184,29 +239,58 @@ useEffect(() => {
 
                 <div className="col-md-4">
                   <div className="form-group">
-                    <label>Division</label>
+                    <label>District</label>
                     <select 
                       type="text"
                       className="form-control"
-                      placeholder="Division"
-                      value={newUser.division}
-                      onChange={e => setNewUser({...newUser, division: e.target.value})}
+                      placeholder="District"
+                      value={newUser.district}
+                      onChange={e => {
+                        setNewUser({...newUser, division: e.target.value});
+                        selectDistrict(e, e.target.value);
+                      }}
                       required
                     > 
-                       <option value="" disabled>-SELECT DIVISION-</option>
-                      {divisions && divisions.map((division) => {
-                          return (
-                            <option value={division.division} key={division._id}>{division.division}</option>
-                          )
-                      })
-                      }
+                      <option value="" disabled>-SELECT DISTRICT-</option>
+                      <option value="1st District">1st District</option>
+                      <option value="2nd District">2nd District</option>
+                      <option value="3rd District">3rd District</option>
+                      <option value="4th District">4th District</option>
+                      <option value="5th District">5th District</option>
+                      <option value="6th District">6th District</option>
                     </select>
                   </div>
                 </div>
 
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>Barangay</label>
+                    <Select
+                      onChange={handleChangeBarangay}
+                      options={barangay}
+                      isSearchable="true"
+                      required
+                      isDisabled={showBarangay}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <div className="form-group">
+                    <label>Street Address</label>
+                    <Select
+                      onChange={handleChangeAddress}
+                      options={street}
+                      isSearchable="true"
+                      required
+                      isDisabled={showAddress}
+                    />
+                  </div>
+                </div>
+      
             </div>
 
-            <button type="submit" className="btn btn-primary">Add User</button>
+            <button type="submit" className="btn btn-primary">Save User</button>
           </form>
         </div>
       </div>
