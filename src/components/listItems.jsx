@@ -14,8 +14,8 @@ import { removeUserSession, getUser } from '../utils/Common'
 
 const Sidebar = () => {
 
-  const userDetail = getUser(); 
-  const userRole = userDetail.role;
+  const userDetail = getUser();
+  const userRole = (userDetail.role || '') ;
 
   const [view, setView] = useState(false)
 
@@ -74,7 +74,7 @@ const Sidebar = () => {
     <Divider />
     <div>
     {view === true
-      ? 
+      ?
       (
         <>
         <ListSubheader inset>Admin Panel</ListSubheader>
