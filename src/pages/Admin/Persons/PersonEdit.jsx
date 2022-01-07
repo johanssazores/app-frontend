@@ -8,6 +8,7 @@ import District from '../../../data/District.json'
 import Select from 'react-select';
 
 const PersonEdit = () => {
+
   let {id} = useParams();
 
 const [updatePerson, setUpdatePerson] = useState({
@@ -43,6 +44,8 @@ const [updatePerson, setUpdatePerson] = useState({
   drinking: "",
   frequencyDrinking: "",
   conditionDisease: "",
+  sourceOfIncome: "",
+  estimatedYearlyIncome: "",
   password: "",
   passwordVerify : "",
 })

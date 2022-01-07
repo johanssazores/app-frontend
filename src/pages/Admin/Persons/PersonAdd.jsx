@@ -42,6 +42,9 @@ const [newPerson, setNewPerson] = useState({
   drinking: "",
   frequencyDrinking: "",
   conditionDisease: "",
+  sourceOfIncome: "",
+  estimatedYearlyIncome: "",
+  yearOfGraduation: "",
   password: "",
   passwordVerify : "",
 })
@@ -64,6 +67,7 @@ const [female, setFemale] = useState(true)
 const [pregnant, setPregnant] = useState(true)
 const [smoke, setSmoke] = useState(true)
 const [drink, setDrink] = useState(true)
+const [yearGraduation, setYearGraduation] = useState(true)
 
   const SubmitAddPerson = async e => {
     e.preventDefault();
@@ -109,6 +113,9 @@ const [drink, setDrink] = useState(true)
               "drinking": newPerson.drinking,
               "frequencyDrinking": newPerson.frequencyDrinking,
               "conditionDisease": newPerson.conditionDisease,
+              "sourceOfIncome": newPerson.sourceOfIncome,
+              "estimatedYearlyIncome": newPerson.estimatedYearlyIncome,
+              "yearOfGraduation": newPerson.yearOfGraduation,
               "password": newPerson.password,
               "passwordVerify" : newPerson.passwordVerify,
             })
@@ -194,6 +201,15 @@ const [drink, setDrink] = useState(true)
     }
   }
 
+  const selectYear = (e, value) => {
+    if(value === 'On-going') {
+      setYearGraduation(false)
+    } else {
+      setYearGraduation(true)
+    }
+
+  }
+
   const handleChangeBarangay = (e) => {
     setNewPerson({...newPerson, barangay: e.value})
     let barangayF = District.filter(d => d.Barangay === e.value);
@@ -219,23 +235,23 @@ const [drink, setDrink] = useState(true)
         <div className="col-md-12">
         <hr/>
           <form onSubmit={SubmitAddPerson}>
-      
+
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
               <h2 className="h5 mb-0 text-gray-800">Personal Details</h2>
             </div>
-        
+
             <div className="row">
 
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>First Name</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="First Name"
                       name="firstName"
                       value={newPerson.firstName}
-                      onChange={e => 
+                      onChange={e =>
                         setNewPerson({...newPerson, firstName: e.target.value})
                       }
                       required
@@ -246,7 +262,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Last Name</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="Last Name"
@@ -261,7 +277,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Sex Assigned at Birth</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       placeholder="Sex Assigned at Birth"
@@ -271,7 +287,7 @@ const [drink, setDrink] = useState(true)
                         selectGender(e, e.target.value);
                       }}
                       required
-                    > 
+                    >
                        <option value="" disabled>-SELECT SEX-</option>
                        <option value="Male">Male</option>
                        <option value="Female">Female</option>
@@ -282,7 +298,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Date Of Birth</label>
-                    <Datetime 
+                    <Datetime
                       timeFormat={false}
                       dateFormat="DD-MM-YYYY"
                       onChange={dateOfBirth}
@@ -295,7 +311,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                   <label>Martital Status</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       placeholder="Sex Assigned at Birth"
@@ -303,7 +319,7 @@ const [drink, setDrink] = useState(true)
                       value={newPerson.maritalStatus}
                       onChange={e => setNewPerson({...newPerson, maritalStatus: e.target.value})}
                       required
-                    > 
+                    >
                        <option value="" disabled>-SELECT STATUS-</option>
                        <option value="Single">Single</option>
                        <option value="Married">Married</option>
@@ -317,7 +333,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Citizenship</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="Citizenship"
@@ -328,11 +344,11 @@ const [drink, setDrink] = useState(true)
                     />
                   </div>
                 </div>
-                
+
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Phone number</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="Phone number"
@@ -348,7 +364,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Religion</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="Religion"
@@ -363,7 +379,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>No. Children</label>
-                    <input 
+                    <input
                       type="number"
                       className="form-control"
                       placeholder="No. Children"
@@ -377,7 +393,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Email</label>
-                    <input 
+                    <input
                       type="email"
                       className="form-control"
                       placeholder="Email"
@@ -392,7 +408,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Password</label>
-                    <input 
+                    <input
                       type="password"
                       className="form-control"
                       placeholder="Password"
@@ -407,7 +423,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Repeat Password</label>
-                    <input 
+                    <input
                       type="password"
                       className="form-control"
                       placeholder="Password"
@@ -422,7 +438,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>District</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       placeholder="District"
@@ -432,7 +448,7 @@ const [drink, setDrink] = useState(true)
                         selectDistrict(e, e.target.value);
                       }}
                       required
-                    > 
+                    >
                       <option value="" disabled>-SELECT DISTRICT-</option>
                       <option value="1st District">1st District</option>
                       <option value="2nd District">2nd District</option>
@@ -473,7 +489,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>House Number / Building Name</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       name="houseNumber"
@@ -487,7 +503,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-4">
                   <div className="form-group">
                     <label>Subdivision</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       name="subdivision"
@@ -505,20 +521,20 @@ const [drink, setDrink] = useState(true)
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
               <h2 className="h5 mb-0 text-gray-800">Education</h2>
             </div>
-      
+
             <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Highest Attained</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       value={newPerson.highestAttainedEducation}
                       name="highestAttainedEducation"
                       onChange={e => setNewPerson({...newPerson, highestAttainedEducation: e.target.value})}
                       required
-                    > 
-                      <option value="" disabled>- SELECT HIGHEST ATTAINED -</option>         
+                    >
+                      <option value="" disabled>- SELECT HIGHEST ATTAINED -</option>
                       <option value="High School">High School</option>
                       <option value="Elementary">Elementary</option>
                       <option value="Vocational">Vocational</option>
@@ -531,14 +547,17 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Status</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       value={newPerson.statusEducation}
                       name="statusEducation"
-                      onChange={e => setNewPerson({...newPerson, statusEducation: e.target.value})}
+                      onChange={e => {
+                        setNewPerson({...newPerson, statusEducation: e.target.value});
+                        selectYear(e, e.target.value);
+                      }}
                       required
-                    > 
+                    >
                       <option value="" disabled>- SELECT EDUCATION STATUS -</option>
                       <option value="Drop-out">Drop Out</option>
                       <option value="On-going">On Going</option>
@@ -551,7 +570,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>School</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="School"
@@ -566,7 +585,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Course</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="Course"
@@ -577,21 +596,92 @@ const [drink, setDrink] = useState(true)
                     />
                   </div>
                 </div>
-              
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label hidden={yearGraduation}>Expected date of graduation</label>
+                    <select
+                      type="text"
+                      className="form-control"
+                      value={newPerson.yearOfGraduation}
+                      name="yearOfGraduation"
+                      onChange={e => setNewPerson({...newPerson, yearOfGraduation: e.target.value})}
+                      disabled={yearGraduation}
+                      hidden={yearGraduation}
+                    >
+                      <option value="" disabled>- SELECT EDUCATION STATUS -</option>
+                      <option value="Drop-out">Drop Out</option>
+                      <option value="On-going">On Going</option>
+                      <option value="Graduate">Graduate </option>
+                      <option value="On-leave">On leave </option>
+                    </select>
+                  </div>
+                </div>
+
             </div>
 
             <hr/>
 
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
+              <h2 className="h5 mb-0 text-gray-800">Financial Information</h2>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Source of Income</label>
+                    <select
+                      type="text"
+                      className="form-control"
+                      value={newPerson.sourceOfIncome}
+                      name="sourceOfIncome"
+                      onChange={e => setNewPerson({...newPerson, sourceOfIncome: e.target.value})}
+                      required
+                    >
+                      <option value="" disabled>- SELECT SOURCE OF INCOME -</option>
+                      <option value="Work">Work</option>
+                      <option value="Pension">Pension</option>
+                      <option value="Other">Other </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Estimated Yearly Income</label>
+                    <select
+                      type="text"
+                      className="form-control"
+                      value={newPerson.estimatedYearlyIncome}
+                      name="estimatedYearlyIncome"
+                      onChange={e => setNewPerson({...newPerson, estimatedYearlyIncome: e.target.value})}
+                      required
+                    >
+                      <option value="" disabled>- SELECT INCOME -</option>
+                      <option value="5,000 - 100,000">5,000 - 100,000</option>
+                      <option value="100,001 - 250,000">100,001 - 250,000</option>
+                      <option value="250,001 - 450,000">250,001 - 450,000</option>
+                      <option value="450,001 - 650,000">450,001 - 650,000</option>
+                      <option value="650,001 - 850,000">650,001 - 850,000</option>
+                      <option value="850,001 - above">850,001 - above</option>
+                    </select>
+                  </div>
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div className="d-sm-flex align-items-center justify-content-between mb-4">
               <h2 className="h5 mb-0 text-gray-800">Medical Details</h2>
             </div>
-      
+
             <div className="row">
 
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Blood Type:</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="bloodType"
@@ -615,7 +705,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>How often do you get a health checkup?  </label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="oftenCheckUp"
@@ -636,7 +726,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Pregnant:</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="pregnant"
@@ -657,7 +747,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>If yes how many months:</label>
-                    <input 
+                    <input
                       type="number"
                       className="form-control"
                       name="monthsPregnant"
@@ -671,7 +761,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Do you Smoke? </label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="smoking"
@@ -692,7 +782,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Packs per day:</label>
-                    <input 
+                    <input
                       type="number"
                       className="form-control"
                       name="packsPerDay"
@@ -706,7 +796,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Do you Drink? </label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="drinking"
@@ -727,7 +817,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Frequency:</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="frequencyDrinking"
@@ -747,7 +837,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>On Going Medication:</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="onGoingMedication"
@@ -765,7 +855,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>With maintenance:</label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="withMaintenance"
@@ -783,7 +873,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Name of Medicine/s:</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="Name of Medicine"
@@ -798,7 +888,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Last Hospital Visit/Checkup?</label>
-                    <input 
+                    <input
                       type="text"
                       className="form-control"
                       placeholder="Last Hospital Visit/Checkup?"
@@ -813,7 +903,7 @@ const [drink, setDrink] = useState(true)
                 <div className="col-md-6">
                   <div className="form-group">
                     <label>Do you have any hereditary conditions/diseases? </label>
-                    <select 
+                    <select
                       type="text"
                       className="form-control"
                       name="conditionDisease"
