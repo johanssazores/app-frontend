@@ -87,3 +87,22 @@
   background-color: #21576D;
   border-color: #21576D;
 }
+
+.image-admin-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.sidebar-label {
+  font-size: 10px;
+}
+.sidebar-label-desc {
+  font-size: 12px;
+}
+
+.sidebar-image {
+  width: 100%;
+  text-align: center;
+}

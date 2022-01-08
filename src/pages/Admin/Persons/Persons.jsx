@@ -10,6 +10,7 @@ const Persons = () => {
 
   const [persons, setPersons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   async function getPersons() {
     const getUsers = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/person`);
     setPersons(getUsers.data);

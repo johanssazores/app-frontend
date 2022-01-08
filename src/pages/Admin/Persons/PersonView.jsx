@@ -7,7 +7,7 @@ import moment from 'moment'
 import District from '../../../data/District.json'
 import Select from 'react-select';
 
-const PersonEdit = () => {
+const PersonView = () => {
 
   let {id} = useParams();
 
@@ -862,4 +862,4 @@ const PersonEdit = () => {
   )
 }
 
-export default PersonEdit
+export default PersonView
