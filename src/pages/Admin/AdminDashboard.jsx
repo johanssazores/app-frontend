@@ -86,7 +86,7 @@ const AdminDashboard = () => {
           <Line data={dataLine} />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={10}>
          <Line data={data2} />
         </Grid>
       </Grid>

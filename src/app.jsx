@@ -9,7 +9,6 @@ import UserLogin from './pages/UserLogin';
 import Dashboard from './pages/User/Dashboard';
 // import Settings from './pages/user/settings';
 
-import Registration from './pages/SignUp'
 import QRView from './pages/QRView';
 
 import AdminLogin from './pages/AdminLogin';
@@ -58,8 +57,6 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={UserLogin} />
 
-        <Route exact path="/registration" component={Registration} />
-        
         <Route exact path="/qr/:id" component={QRView} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/scanner" component={ScannerQR} />

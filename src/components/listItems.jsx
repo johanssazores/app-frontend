@@ -11,12 +11,13 @@ import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import Divider from '@mui/material/Divider';
 import { removeUserSession, getUser } from '../utils/Common'
-import Logo from '../assets/images/logo.png'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BusinessIcon from '@mui/icons-material/Business';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
+
 
 const Sidebar = () => {
 
@@ -32,8 +33,6 @@ const Sidebar = () => {
       setSessionUser(JSON.parse(sessionD))
     }
   }, [sessionD]);
-
-  console.log(sessionUser)
 
   useEffect(() => {
     if(userRole === 'ADMINISTRATOR'){
@@ -52,15 +51,10 @@ const Sidebar = () => {
   return (
     <>
       <div>
-      
-      <div className="sidebar-image">
-        <img width="50%"src={Logo} alt="1Kyusi"/>
-      </div>
-  
       <ListSubheader inset>
         User Information
       </ListSubheader>
-
+      
       <ListItem>
         <ListItemIcon>
           <AccountCircleIcon />
@@ -125,8 +119,11 @@ const Sidebar = () => {
 
 
     </div>
+
     <Divider />
+
     <div>
+
     {view === true
       ?
       (
@@ -143,17 +140,27 @@ const Sidebar = () => {
           </ListItemIcon>
           <ListItemText primary="Users" />
         </ListItem>
+
+        <ListItem
+        button
+        key="QRUsers"
+        component={NavLink} to="/admin/users"
+        >
+          <ListItemIcon>
+            <SupervisedUserCircleOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary="QR Users" />
+        </ListItem>
         </>
       )
       : ""
     }
 
-
     <ListSubheader inset></ListSubheader>
-    <ListItem
-    button
-    onClick={handleLogout}
-    >
+      <ListItem
+      button
+      onClick={handleLogout}
+      >
       <ListItemIcon>
         <LogoutIcon />
       </ListItemIcon>

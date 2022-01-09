@@ -5,6 +5,9 @@ import { createTheme } from "@mui/material/styles";
 import MUIDataTable from "mui-datatables";
 import { Link } from 'react-router-dom';
 
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 const Users = () => {
 
   const [users, setUsers] = useState([]);
@@ -106,8 +109,8 @@ const Users = () => {
         customBodyRender: (value) => {
           return (
             <>
-              <Link className="button-table-view" to={`/admin/user/${value}`}>View More</Link>
-              <button className="button-table-delete" onClick={() => { if (window.confirm('Are you sure you wish to delete this user?')) SubmitDeleteUser(value) } }>Delete</button>
+              <Link className="button-table-view" to={`/admin/user/${value}`}> <ModeEditOutlinedIcon/> </Link>
+              <button className="button-table-delete" style={{marginTop:"20px"}} onClick={() => { if (window.confirm('Are you sure you wish to delete this user?')) SubmitDeleteUser(value) } }> <DeleteOutlineOutlinedIcon /></button>
             </>
           );
         },

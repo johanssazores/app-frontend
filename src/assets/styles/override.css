@@ -97,12 +97,27 @@
 
 .sidebar-label {
   font-size: 10px;
+  text-transform: uppercase;
+  color: rgb(33, 87, 109);
 }
 .sidebar-label-desc {
   font-size: 12px;
+  text-transform: uppercase;
+  color: rgb(33, 87, 109);
 }
 
 .sidebar-image {
   width: 100%;
   text-align: center;
+}
+
+.removescroll {
+  -ms-overflow-style: none;
+}
+.removescroll::-webkit-scrollbar {
+  display: none;
+}
+
+#root {
+  -ms-overflow-style: none;
 }

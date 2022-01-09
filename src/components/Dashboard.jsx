@@ -83,9 +83,11 @@ function DashboardContent(props) {
 
   return (
     <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
+      <Box className="removescroll" sx={{ display: 'flex', overflow: 'hidden !important' }}>
+
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+
+        <AppBar style={{ background: '#21576D' }} position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -160,14 +162,13 @@ function DashboardContent(props) {
         >
           <Toolbar />
 
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="xl" sx={{ mt: 12, mb: 12 }}>
              {props.children}
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
 
       </Box>
-
 
     </ThemeProvider>
   );

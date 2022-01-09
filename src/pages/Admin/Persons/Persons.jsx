@@ -6,6 +6,9 @@ import MUIDataTable from "mui-datatables";
 import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 const Persons = () => {
 
   const [persons, setPersons] = useState([]);
@@ -60,8 +63,24 @@ const Persons = () => {
       }
     },
     {
-      name: "division",
-      label: "Division",
+      name: "district",
+      label: "District",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      name: "streetName",
+      label: "Street",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      name: "barangay",
+      label: "Barangay",
       options: {
         filter: true,
         sort: true,
@@ -97,8 +116,8 @@ const Persons = () => {
         customBodyRender: (value) => {
           return (
             <>
-              <Link className="button-table-view" to={`/admin/person/${value}`}>View More</Link>
-              <button className="button-table-delete">Delete</button>
+              <Link className="button-table-view" to={`/admin/person/${value}`}><ModeEditOutlinedIcon /></Link>
+              <button className="button-table-delete"><DeleteOutlineOutlinedIcon /></button>
             </>
           );
         },
@@ -125,20 +144,20 @@ const Persons = () => {
 
   return (
     <>
-    <div className="container-fluid">
-      <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Constituents </h1>
-        <Link to="/admin/person-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Constituents </Link>
+      <div>
+        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 className="h3 mb-0 text-gray-800">Constituents </h1>
+          <Link to="/admin/person-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Constituents </Link>
+        </div>
+        <ThemeProvider theme={createTheme()}>
+          <MUIDataTable
+            title={"Constituents List"}
+            data={persons}
+            columns={columns}
+            options={options}
+          />
+        </ThemeProvider>
       </div>
-      <ThemeProvider theme={createTheme()}>
-        <MUIDataTable
-          title={"Constituents List"}
-          data={persons}
-          columns={columns}
-          options={options}
-        />
-      </ThemeProvider>
-    </div>
     {(isLoading) ? <div className="exid-spinner" style={{ fontSize: "10em" }}></div> : ""}
     </>
   )
