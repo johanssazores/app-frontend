@@ -3,11 +3,24 @@ import axios from 'axios'
 import QrReader from 'react-qr-reader';
 import moment from 'moment'
 
+import Box from '@mui/material/Box';
+
+
 const ScannerQR = () => {
 
     const [location, setLocation] = useState({});
     const [personDetails, setPersonDetails] = useState({})
     const [isLoading, setIsLoading] = useState(false);
+
+    const [sessionUser, setSessionUser] = useState({});
+    const sessionD = sessionStorage.getItem("scanner")
+
+
+    useEffect(() => {
+      if(sessionD) {
+        setSessionUser(JSON.parse(sessionD))
+      }
+    }, [sessionD]);
 
     useEffect( () => {
       const getData = async () => {
@@ -29,8 +42,8 @@ const ScannerQR = () => {
       axios.get(`${process.env.REACT_APP_BACKEND_URL}/person/${result}`).then(response => {
         const personData = response.data;
          let currentDate = moment().format('MMMM Do YYYY, h:mm:ss a')
-          axios.post(`${process.env.REACT_APP_BACKEND_URL}/movement`, { 
-            name: `${personData.firstName} ${personData.lastName}`, 
+          axios.post(`${process.env.REACT_APP_BACKEND_URL}/movement`, {
+            name: `${personData.firstName} ${personData.lastName}`,
             email: personData.email,
             ip:  location.geo.IPv4,
             region: location.ipapi.region,
@@ -55,41 +68,30 @@ const ScannerQR = () => {
    console.log(location)
 
   return (
-    <div className="container">
-      <div>
-        <div className="row">
-
-          <div className="col-md-12">
-            <div className="parent-scanner">
-              <div className="child-scanner">
-                <QrReader
-                    delay={300}
-                    onError={handleErrorWebCam}
-                    onScan={handleScanWebCam}
-                  />
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-12">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column"
-              }}
-            >
-              <br/>
-                <h3>Name: {personDetails.firstName} {personDetails.lastName}</h3>
-                <h3>Email: {personDetails.email}  </h3>
-            </div>
-          </div>
-
+    <>
+      <div style={{display: "flex"}}>
+        <Box
+          sx={{
+            width: 500,
+            height: 500,
+          }}
+        >
+          <QrReader
+              delay={300}
+              onError={handleErrorWebCam}
+              onScan={handleScanWebCam}
+            />
+        </Box>
+        <div style={{padding: "20px"}}>
+          <h1>Scanner</h1>
+          <h2>Location: {sessionUser.locationName} - {sessionUser.branch} </h2>
+          <h3>Name: {personDetails.firstName} {personDetails.lastName}</h3>
+          <h3>Email: {personDetails.email}  </h3>
         </div>
       </div>
+
       {(isLoading) ? <div className="exid-spinner" style={{ fontSize: "10em" }}></div> : ""}
-    </div>
+    </>
   )
 }
 

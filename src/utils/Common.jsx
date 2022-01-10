@@ -16,6 +16,30 @@ export const setUserSession = (token, user) => {
   sessionStorage.setItem('user', JSON.stringify(user));
 }
 
+//
+
+export const getScanner = () => {
+  const userStr = sessionStorage.getItem('scanner');
+  if (userStr) return JSON.parse(userStr);
+  else return null;
+}
+
+export const getScannerToken = () => {
+  return sessionStorage.getItem('tokenScanner') || null;
+}
+export const removeScannerSession = () => {
+  sessionStorage.removeItem('tokenScanner');
+  sessionStorage.removeItem('scanner');
+}
+export const setScannerSession = (tokenScanner, user) => {
+  sessionStorage.setItem('tokenScanner', tokenScanner);
+  sessionStorage.setItem('scanner', JSON.stringify(user));
+}
+
+
+
+
+
 
 export const getPerson = () => {
   const personStr = sessionStorage.getItem('person');

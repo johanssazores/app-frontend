@@ -10,7 +10,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import Divider from '@mui/material/Divider';
-import { removeUserSession, getUser } from '../utils/Common'
+import { removeUserSession } from '../utils/Common'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -25,9 +25,6 @@ const Sidebar = () => {
   const [view, setView] = useState(false)
   const sessionD = sessionStorage.getItem("user")
 
-  const userDetail = getUser();
-  const userRole = (userDetail.role || '') ;
-
   useEffect(() => {
     if(sessionD) {
       setSessionUser(JSON.parse(sessionD))
@@ -35,13 +32,14 @@ const Sidebar = () => {
   }, [sessionD]);
 
   useEffect(() => {
-    if(userRole === 'ADMINISTRATOR'){
+    if(sessionUser.role === 'ADMINISTRATOR'){
       setView(true)
     }
-    if(userRole === 'QC-LGU-DPO'){
+    if(sessionUser.role === 'QC-LGU-DPO'){
       setView(true)
     }
-  }, [userRole]);
+  }, [sessionUser.role]);
+
 
   const handleLogout = () => {
     removeUserSession();
@@ -54,7 +52,7 @@ const Sidebar = () => {
       <ListSubheader inset>
         User Information
       </ListSubheader>
-      
+
       <ListItem>
         <ListItemIcon>
           <AccountCircleIcon />
@@ -144,7 +142,7 @@ const Sidebar = () => {
         <ListItem
         button
         key="QRUsers"
-        component={NavLink} to="/admin/users"
+        component={NavLink} to="/admin/scanners"
         >
           <ListItemIcon>
             <SupervisedUserCircleOutlinedIcon />

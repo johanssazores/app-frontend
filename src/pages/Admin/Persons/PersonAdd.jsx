@@ -121,7 +121,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
             })
           }
         )
-        console.log(savePerson.data)
+
         alert('Person Added')
         window.location.href="/admin/persons"
       } else {

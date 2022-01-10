@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Routes = () => {
+const ScannerEdit = () => {
 
   return (
     <div>
-      
+
     </div>
   )
 }
 
-export default Routes
+export default ScannerEdit
