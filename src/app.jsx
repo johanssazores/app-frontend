@@ -102,7 +102,6 @@ const App = () => {
         <PrivateRoute exact path="/admin/dashboard" component={AdminDashboard} />
         <PrivateRoute exact path="/admin//settings" component={AdminSettings} />
 
-
         <PrivateRoute exact path="/admin/users" component={Users} />
         <PrivateRoute exact path="/admin/user-add" component={UserAdd} />
         <PrivateRoute exact path="/admin/user/:id" component={UserEdit} />
