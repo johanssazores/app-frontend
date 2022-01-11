@@ -12,6 +12,7 @@ const Users = () => {
 
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
   async function getUsers() {
     const getUsers = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user`);
     setUsers(getUsers.data);

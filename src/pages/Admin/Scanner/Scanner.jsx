@@ -94,7 +94,7 @@ const Scanners = () => {
         customBodyRender: (value) => {
           return (
             <>
-              <Link className="button-table-view" to={`/admin/user/${value}`}> <ModeEditOutlinedIcon/> </Link>
+              <Link className="button-table-view" to={`/admin/scanner/${value}`}> <ModeEditOutlinedIcon/> </Link>
               <button className="button-table-delete" style={{marginTop:"20px"}} onClick={() => { if (window.confirm('Are you sure you wish to delete this user?')) SubmitDeleteUser(value) } }> <DeleteOutlineOutlinedIcon /></button>
             </>
           );

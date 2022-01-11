@@ -1,30 +1,28 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 // import moment from 'moment'
-import { 
-  // Bar, 
-  Line } from "react-chartjs-2";
+import {Bar, Line } from "react-chartjs-2";
 
 const AdminDashboard = () => {
 
-  // const data = {
-  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-  //   datasets: [
-  //     {
-  //       label: "Data 2021",
-  //       data: [45, 53, 85, 41, 44, 65, 85, 41, 44, 65, 50, 24],
-  //       fill: true,
-  //       backgroundColor: "rgba(75,192,192,0.2)",
-  //       borderColor: "rgba(75,192,192,1)"
-  //     },
-  //     {
-  //       label: "Data 2022",
-  //       data: [33, 25, 35, 51, 54, 76,33, 25, 35, 51, 54, 76],
-  //       fill: false,
-  //       borderColor: "#742774"
-  //     }
-  //   ]
-  // };
+  const data = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+    datasets: [
+      {
+        label: "Data 2021",
+        data: [45, 53, 85, 41, 44, 65, 85, 41, 44, 65, 50, 24],
+        fill: true,
+        backgroundColor: "rgba(75,192,192,0.2)",
+        borderColor: "rgba(75,192,192,1)"
+      },
+      {
+        label: "Data 2022",
+        data: [33, 25, 35, 51, 54, 76,33, 25, 35, 51, 54, 76],
+        fill: false,
+        borderColor: "#742774"
+      }
+    ]
+  };
 
   const data2 = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -107,16 +105,17 @@ const AdminDashboard = () => {
   return (
     <>
       <Grid container spacing={3}>
+        
         <h2>Analytics</h2>
         <Grid item xs={12}>
          <Line data={data2} />
         </Grid>
 
-        {/* <Grid item xs={12} md={6} lg={6}>
+        <Grid item xs={12} md={6} lg={6}>
           <Bar data={data} />
         </Grid>
 
-        <Grid item xs={12} md={6} lg={6}>
+        {/* <Grid item xs={12} md={6} lg={6}>
           <Line data={dataLine} />
         </Grid> */}
 

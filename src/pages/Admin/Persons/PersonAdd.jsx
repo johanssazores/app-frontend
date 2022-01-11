@@ -405,7 +405,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                   </div>
                 </div>
 
-                <div className="col-md-4">
+                {/* <div className="col-md-4">
                   <div className="form-group">
                     <label>Password</label>
                     <input
@@ -433,7 +433,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       required
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="col-md-4">
                   <div className="form-group">

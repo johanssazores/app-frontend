@@ -20,27 +20,6 @@ const Movements = () => {
     getMovement();
   }, []);
 
-  // const SubmitDeleteMovement = (value) => {
-  //   setIsLoading(true)
-  //   fetch(`${process.env.REACT_APP_BACKEND_URL}/Movement/${value}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log('Success:', data);
-  //     setIsLoading(false)
-  //     alert('Movement Deleted')
-  //     window.location.href="/admin/Movements"
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error:', error);
-  //     setIsLoading(false)
-  //   });
-  // }
-
   const columns = [
     {
       name: "name",

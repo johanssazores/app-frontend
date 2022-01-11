@@ -46,8 +46,6 @@ const PersonEdit = () => {
     conditionDisease: "",
     sourceOfIncome: "",
     estimatedYearlyIncome: "",
-    password: "",
-    passwordVerify : "",
   })
   const [isLoading, setIsLoading] = useState(false);
 
@@ -121,8 +119,6 @@ const PersonEdit = () => {
               "drinking": updatePerson.drinking,
               "frequencyDrinking": updatePerson.frequencyDrinking,
               "conditionDisease": updatePerson.conditionDisease,
-              "password": updatePerson.password,
-              "passwordVerify" : updatePerson.passwordVerify,
             })
           }
         )
@@ -404,7 +400,7 @@ const PersonEdit = () => {
                   </div>
                 </div>
 
-                <div className="col-md-4">
+                {/* <div className="col-md-4">
                   <div className="form-group">
                     <label>Password</label>
                     <input
@@ -432,7 +428,7 @@ const PersonEdit = () => {
                       required
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="col-md-4">
                   <div className="form-group">
@@ -845,11 +841,7 @@ const PersonEdit = () => {
                     </select>
                   </div>
                 </div>
-
             </div>
-
-
-
 
 
             <button type="submit" className="btn btn-primary">Save</button>
