@@ -70,6 +70,22 @@ const Movements = () => {
       }
     },
     {
+      name: "locationName",
+      label: "Location",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
+      name: "branch",
+      label: "Branch",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
       name: "time",
       label: "Track Time",
       options: {

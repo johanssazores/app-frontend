@@ -50,6 +50,8 @@ const ScannerQR = () => {
             city: location.ipapi.city,
             country: location.ipapi.country_name,
             time: currentDate,
+            branch: sessionUser.locationName,
+            locationName: sessionUser.branch
           }).then(response => {
             console.log(response.data)
             setPersonDetails(personData)
