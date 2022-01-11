@@ -2,9 +2,7 @@ import {useState,useEffect} from 'react'
 import axios from 'axios'
 import QrReader from 'react-qr-reader';
 import moment from 'moment'
-
 import Box from '@mui/material/Box';
-
 
 const ScannerQR = () => {
 
@@ -44,6 +42,7 @@ const ScannerQR = () => {
          let currentDate = moment().format('MMMM Do YYYY, h:mm:ss a')
           axios.post(`${process.env.REACT_APP_BACKEND_URL}/movement`, {
             name: `${personData.firstName} ${personData.lastName}`,
+            barangay: `${personData.district} - ${personData.barangay} - ${personData.streetName}`,
             email: personData.email,
             ip:  location.geo.IPv4,
             region: location.ipapi.region,
@@ -88,7 +87,9 @@ const ScannerQR = () => {
           <h1>Scanner</h1>
           <h2>Location: {sessionUser.locationName} - {sessionUser.branch} </h2>
           <h3>Name: {personDetails.firstName} {personDetails.lastName}</h3>
-          <h3>Email: {personDetails.email}  </h3>
+          <h3>District: {personDetails.district}  </h3>
+          <h3>Barangay: {personDetails.barangay}  </h3>
+          <h3>Street: {personDetails.streetName}  </h3>
         </div>
       </div>
 

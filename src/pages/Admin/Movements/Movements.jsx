@@ -86,6 +86,14 @@ const Movements = () => {
       }
     },
     {
+      name: "barangay",
+      label: "Barangay",
+      options: {
+        filter: true,
+        sort: true,
+      }
+    },
+    {
       name: "time",
       label: "Track Time",
       options: {

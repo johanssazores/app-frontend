@@ -104,17 +104,24 @@ const Sidebar = () => {
         <ListItemText primary="Constituents" />
       </ListItem>
 
-      <ListItem
-      button
-      key="Movements"
-      component={NavLink} to="/admin/movements"
-      >
-        <ListItemIcon>
-          <LocationSearchingIcon />
-        </ListItemIcon>
-        <ListItemText primary="Movements Tracker" />
-      </ListItem>
 
+      {sessionUser.role === "QC-BARANGAY-DPO" 
+      ? (
+        <>
+          <ListItem
+          button
+          key="UserSpecific"
+          component={NavLink} to="/admin/users-barangay"
+          >
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItem>
+        </>
+
+        ) : ""
+      }
 
     </div>
 
@@ -127,6 +134,17 @@ const Sidebar = () => {
       (
         <>
         <ListSubheader inset>Admin Panel</ListSubheader>
+
+        <ListItem
+        button
+        key="Movements"
+        component={NavLink} to="/admin/movements"
+        >
+          <ListItemIcon>
+            <LocationSearchingIcon />
+          </ListItemIcon>
+          <ListItemText primary="Movements Tracker" />
+        </ListItem>
 
         <ListItem
         button

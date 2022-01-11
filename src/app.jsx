@@ -25,6 +25,10 @@ import Users from './pages/Admin/Users/Users'
 import UserAdd from './pages/Admin/Users/UserAdd'
 import UserEdit from './pages/Admin/Users/UserEdit'
 
+import UsersBarangay from './pages/Admin/UsersBarangay/Users'
+import UsersBarangayAdd from './pages/Admin/UsersBarangay/UserAdd'
+import UsersBarangayEdit from './pages/Admin/UsersBarangay/UserEdit'
+
 import Scanner from './pages/Admin/Scanner/Scanner'
 import ScannerAdd from './pages/Admin/Scanner/ScannerAdd'
 import ScannerEdit from './pages/Admin/Scanner/ScannerEdit'
@@ -92,7 +96,7 @@ const App = () => {
 
         <Route exact path="/qr/:id" component={QRView} />
         <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/scanner" component={ScannerQR} />
+        {/* <Route exact path="/scanner" component={ScannerQR} /> */}
 
         <PublicRoute exact path="/admin/login" component={AdminLogin} />
 
@@ -105,6 +109,10 @@ const App = () => {
         <PrivateRoute exact path="/admin/users" component={Users} />
         <PrivateRoute exact path="/admin/user-add" component={UserAdd} />
         <PrivateRoute exact path="/admin/user/:id" component={UserEdit} />
+
+        <PrivateRoute exact path="/admin/users-barangay" component={UsersBarangay} />
+        <PrivateRoute exact path="/admin/user-barangay-add" component={UsersBarangayAdd} />
+        <PrivateRoute exact path="/admin/user-barangay/:id" component={UsersBarangayEdit} />
 
         <PrivateRoute exact path="/admin/scanners" component={Scanner} />
         <PrivateRoute exact path="/admin/scanner-add" component={ScannerAdd} />

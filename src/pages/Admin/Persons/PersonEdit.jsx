@@ -6,10 +6,24 @@ import "react-datetime/css/react-datetime.css";
 import moment from 'moment'
 import District from '../../../data/District.json'
 import Select from 'react-select';
+import QRCode from 'qrcode.react';
 
 const PersonEdit = () => {
 
   let {id} = useParams();
+
+  const downloadQRCode = () => {
+    const qrCodeURL = document.getElementById('qrCodeEl')
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    console.log(qrCodeURL)
+    let aEl = document.createElement("a");
+    aEl.href = qrCodeURL;
+    aEl.download = "my_qr.png";
+    document.body.appendChild(aEl);
+    aEl.click();
+    document.body.removeChild(aEl);
+  }
 
   const [updatePerson, setUpdatePerson] = useState({
     firstName: "",
@@ -228,6 +242,20 @@ const PersonEdit = () => {
         <h1 className="h3 mb-0 text-gray-800">Edit Constituents </h1>
         <Link to="/admin/persons" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
       </div>
+      <div className="row">
+        <div className="col-md-12">
+          <div style={{textAlign: "center"}}>
+            <QRCode
+              id="qrCodeEl"
+              size={300}
+              value={id}
+              onClick={downloadQRCode}
+              className="qr-class"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="row">
         <div className="col-md-12">
         <hr/>

@@ -4,48 +4,66 @@ import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 import MUIDataTable from "mui-datatables";
 import { Link } from 'react-router-dom';
-import QRCode from 'qrcode.react';
 
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-const Persons = () => {
+const Users = () => {
 
-  const [persons, setPersons] = useState([]);
+  const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const sessionD = sessionStorage.getItem("user")
   const ses = JSON.parse(sessionD);
 
   useEffect(() => {
     async function getPersons() {
       const filteredPerson = await axios.request(
-        `${process.env.REACT_APP_BACKEND_URL}/filter/street`,
+        `${process.env.REACT_APP_BACKEND_URL}/filter/user`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           data: JSON.stringify({
-            "role": ses.role,
-            "streetName": ses.address,
+            "address": ses.address,
           })
         }
       )
-      setPersons(filteredPerson.data.persons)
+      setUsers(filteredPerson.data.users)
       setIsLoading(false)
     } 
     getPersons();
-  }, [ses.address, ses.role]);
+  }, [ses.address]);
 
-  const downloadQRCode = () => {
-    const qrCodeURL = document.getElementById('qrCodeEl')
-      .toDataURL("image/png")
-      .replace("image/png", "image/octet-stream");
-    console.log(qrCodeURL)
-    let aEl = document.createElement("a");
-    aEl.href = qrCodeURL;
-    aEl.download = "my_qr.png";
-    document.body.appendChild(aEl);
-    aEl.click();
-    document.body.removeChild(aEl);
+  
+  // async function getUsers() {
+  //   const getUsers = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/filter/user`);
+  //   setUsers(getUsers.data);
+  //   setIsLoading(false)
+  // } 
+
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
+
+  const SubmitDeleteUser = (value) => {
+    setIsLoading(true)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${value}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      setIsLoading(false)
+      alert('User Deleted')
+      window.location.href="/admin/users"
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      setIsLoading(false)
+    });
   }
 
   const columns = [
@@ -56,6 +74,14 @@ const Persons = () => {
       filter: true,
       sort: true,
      }
+    },
+    {
+      name: "role",
+      label: "Role",
+      options: {
+        filter: true,
+        sort: true,
+      }
     },
     {
       name: "firstName",
@@ -82,14 +108,6 @@ const Persons = () => {
       }
     },
     {
-      name: "streetName",
-      label: "Street",
-      options: {
-        filter: true,
-        sort: true,
-      }
-    },
-    {
       name: "barangay",
       label: "Barangay",
       options: {
@@ -98,24 +116,11 @@ const Persons = () => {
       }
     },
     {
-      name: "_id",
-      label: "QR Code",
+      name: "address",
+      label: "Address",
       options: {
-        filter: false,
-        sort: false,
-        customBodyRender: (value) => {
-          return (
-            <>
-              <QRCode
-                id="qrCodeEl"
-                size={100}
-                value={value}
-                onClick={downloadQRCode}
-                className="qr-class"
-              />
-            </>
-          );
-        },
+        filter: true,
+        sort: true,
       }
     },
     {
@@ -127,8 +132,8 @@ const Persons = () => {
         customBodyRender: (value) => {
           return (
             <>
-              <Link className="button-table-view" to={`/admin/person/${value}`}><ModeEditOutlinedIcon /></Link>
-              <button className="button-table-delete"><DeleteOutlineOutlinedIcon /></button>
+              <Link className="button-table-view" to={`/admin/user-barangay/${value}`}> <ModeEditOutlinedIcon/> </Link>
+              <button className="button-table-delete" style={{marginTop:"20px"}} onClick={() => { if (window.confirm('Are you sure you wish to delete this user?')) SubmitDeleteUser(value) } }> <DeleteOutlineOutlinedIcon /></button>
             </>
           );
         },
@@ -155,23 +160,23 @@ const Persons = () => {
 
   return (
     <>
-      <div>
-        <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 className="h3 mb-0 text-gray-800">Constituents </h1>
-          <Link to="/admin/person-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Constituents </Link>
-        </div>
-        <ThemeProvider theme={createTheme()}>
-          <MUIDataTable
-            title={"Constituents List"}
-            data={persons}
-            columns={columns}
-            options={options}
-          />
-        </ThemeProvider>
+    <div className="container-fluid">
+      <div className="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 className="h3 mb-0 text-gray-800">Barangay Users</h1>
+        <Link to="/admin/user-barangay-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add User</Link>
       </div>
+      <ThemeProvider theme={createTheme()}>
+        <MUIDataTable
+          title={"User List"}
+          data={users}
+          columns={columns}
+          options={options}
+        />
+      </ThemeProvider>
+    </div>
     {(isLoading) ? <div className="exid-spinner" style={{ fontSize: "10em" }}></div> : ""}
     </>
   )
 }
 
-export default Persons
+export default Users
