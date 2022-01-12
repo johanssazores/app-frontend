@@ -1,77 +1,120 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Grid from '@mui/material/Grid';
+import axios from 'axios'
 // import moment from 'moment'
-import {Bar, Line } from "react-chartjs-2";
+import {
+  // Bar, Line, 
+  Doughnut } from "react-chartjs-2";
 
 const AdminDashboard = () => {
 
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+
+  const [datas, setDatas] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getUsers() {
+      const getData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/filter/all-analytics`);
+      setDatas(getData.data);
+      setIsLoading(false)
+    } 
+    getUsers();
+  }, []);
+
+  console.log(datas)
+
+  const datasz = {
+    labels: ['Total Constituents', 'Total Pregnant', 'Total with Maintenance', 'Total Male', 'Total Female'],
     datasets: [
       {
-        label: "Data 2021",
-        data: [45, 53, 85, 41, 44, 65, 85, 41, 44, 65, 50, 24],
-        fill: true,
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)"
+        label: '# of Votes',
+        data: datas,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
       },
-      {
-        label: "Data 2022",
-        data: [33, 25, 35, 51, 54, 76,33, 25, 35, 51, 54, 76],
-        fill: false,
-        borderColor: "#742774"
-      }
-    ]
+    ],
   };
 
-  const data2 = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [
-      {
-        label: "District",
-        data: [54, 3, 23, 43, 54, 12, 7, 86, 2, 24, 12, 35],
-        fill: false,
-        borderColor: "violet"
-      },
-      {
-        label: "Barangay",
-        data: [7, 86, 4, 24, 12, 35, 33, 53, 85, 41, 44, 65],
-        fill: false,
-        borderColor: "purple"
-      },
-      {
-        label: "Street Name",
-        data: [7, 86, 68, 24, 12, 35, 13, 41, 53, 24, 54, 65],
-        fill: false,
-        borderColor: "brown"
-      },
-      {
-        label: "Gender",
-        data: [33, 53, 85, 41, 44, 65, 24, 12, 35, 13, 41, 2],
-        fill: true,
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)"
-      },
-      {
-        label: "Maintenance",
-        data: [13, 41, 53, 24, 54, 65, 22, 24, 12, 9, 5, 10],
-        fill: false,
-        borderColor: "green"
-      },
-      {
-        label: "Pregnant",
-        data: [13, 41, 53, 24, 54, 65, 24, 12, 35, 13, 41, 53],
-        fill: false,
-        borderColor: "orange"
-      },
-      {
-        label: "Education",
-        data: [7, 86, 68, 24, 12, 35, 13, 41, 53, 24, 54, 65],
-        fill: false,
-        borderColor: "pink"
-      }
-    ]
-  };
+  // const data = {
+  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+  //   datasets: [
+  //     {
+  //       label: "Data 2021",
+  //       data: [45, 53, 85, 41, 44, 65, 85, 41, 44, 65, 50, 24],
+  //       fill: false,
+  //       borderColor: "rgba(75,192,192,1)"
+  //     },
+  //     {
+  //       label: "Data 2022",
+  //       data: [33, 25, 35, 51, 54, 76,33, 25, 35, 51, 54, 76],
+  //       fill: false,
+  //       borderColor: "#742774"
+  //     }
+  //   ]
+  // };
+
+  // const data2 = {
+  //   labels: ["Jan"],
+  //   datasets: [
+  //     {
+  //       label: "District",
+  //       data: [54],
+  //       fill: false,
+  //       borderColor: "violet"
+  //     },
+  //     {
+  //       label: "Barangay",
+  //       data: [7],
+  //       fill: false,
+  //       borderColor: "purple"
+  //     },
+  //     {
+  //       label: "Street Name",
+  //       data: [7],
+  //       fill: false,
+  //       borderColor: "brown"
+  //     },
+  //     {
+  //       label: "Gender",
+  //       data: [33],
+  //       fill: false,
+  //       borderColor: "rgba(75,192,192,1)"
+  //     },
+  //     {
+  //       label: "Maintenance",
+  //       data: [13],
+  //       fill: false,
+  //       borderColor: "green"
+  //     },
+  //     {
+  //       label: "Pregnant",
+  //       data: [13],
+  //       fill: false,
+  //       borderColor: "orange"
+  //     },
+  //     {
+  //       label: "Education",
+  //       data: [7],
+  //       fill: false,
+  //       borderColor: "pink"
+  //     }
+  //   ]
+  // };
 
   // const startDate = new Date();
   // const labels = [];
@@ -102,23 +145,25 @@ const AdminDashboard = () => {
   // };
 
 
+
+
   return (
     <>
+      <h2>Analytics</h2>
+      <h3>Overall Totals</h3>
       <Grid container spacing={3}>
-        
-        <h2>Analytics</h2>
-        <Grid item xs={12}>
+        <Grid item xs={4}>
+          <Doughnut data={datasz} />
+        </Grid>
+
+        {/* <Grid item xs={6}>
          <Line data={data2} />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={6}>
-          <Bar data={data} />
-        </Grid>
-
-        {/* <Grid item xs={12} md={6} lg={6}>
-          <Line data={dataLine} />
         </Grid> */}
 
+        {/* <Grid item xs={12} md={6} lg={6}>
+          <Bar data={data} />
+        </Grid> */}
+       {(isLoading) ? <div className="exid-spinner" style={{ fontSize: "10em" }}></div> : ""}
       </Grid>
     </>
   )
