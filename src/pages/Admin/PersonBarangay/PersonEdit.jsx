@@ -242,6 +242,7 @@ const PersonEdit = () => {
         <h1 className="h3 mb-0 text-gray-800">Edit Constituents </h1>
         <Link to="/admin/persons" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Back</Link>
       </div>
+      
       <div className="row">
         <div className="col-md-12">
           <div style={{textAlign: "center"}}>
