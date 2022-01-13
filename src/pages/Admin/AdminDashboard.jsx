@@ -18,16 +18,7 @@ const AdminDashboard = () => {
   const [datas, setDatas] = useState();
   const [isLoading, setIsLoading] = useState(null);
 
-  const [startDate, setStartDate] = useState(new Date("1920-01-01"));
-  const [endDate, setEndDate] = useState(new Date("2050-01-01"));
-  const handleChangeStartDate = (event) => {
-    setStartDate(event.target.value);
-  };
-  const handleChangeEndDate = (event) => {
-    setEndDate(event.target.value);
-  };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const fetchData = async () => {
     setIsLoading(true);
 
     try {
@@ -43,7 +34,25 @@ const AdminDashboard = () => {
     catch (error) {
       console.error(error);
     }
+  }
+
+  const [startDate, setStartDate] = useState(new Date("1920-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2050-01-01"));
+  const handleChangeStartDate = (event) => {
+    setStartDate(event.target.value);
   };
+  const handleChangeEndDate = (event) => {
+    setEndDate(event.target.value);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    fetchData();
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   // console.log(datas)
 
   const datasz = {
