@@ -68,6 +68,8 @@ const [pregnant, setPregnant] = useState(true)
 const [smoke, setSmoke] = useState(true)
 const [drink, setDrink] = useState(true)
 const [yearGraduation, setYearGraduation] = useState(true)
+const [educ, setEduc] = useState(false)
+const [finance, setFinance] = useState(false)
 
   const SubmitAddPerson = async e => {
     e.preventDefault();
@@ -207,7 +209,22 @@ const [yearGraduation, setYearGraduation] = useState(true)
     } else {
       setYearGraduation(true)
     }
+  }
 
+  const selectEduc = (e, value) => {
+    if(value === 'N/A') {
+      setEduc(true)
+    } else {
+      setEduc(false)
+    }
+  }
+
+  const selectFinance = (e, value) => {
+    if(value === 'N/A') {
+      setFinance(true)
+    } else {
+      setFinance(false)
+    }
   }
 
   const handleChangeBarangay = (e) => {
@@ -531,7 +548,10 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       className="form-control"
                       value={newPerson.highestAttainedEducation}
                       name="highestAttainedEducation"
-                      onChange={e => setNewPerson({...newPerson, highestAttainedEducation: e.target.value})}
+                      onChange={e => {
+                        setNewPerson({...newPerson, highestAttainedEducation: e.target.value});
+                        selectEduc(e, e.target.value);
+                      }} 
                       required
                     >
                       <option value="" disabled>- SELECT HIGHEST ATTAINED -</option>
@@ -557,7 +577,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                         setNewPerson({...newPerson, statusEducation: e.target.value});
                         selectYear(e, e.target.value);
                       }}
-                      required
+                      disabled={educ}
                     >
                       <option value="" disabled>- SELECT EDUCATION STATUS -</option>
                       <option value="Drop-out">Drop Out</option>
@@ -578,7 +598,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       name="schoolEducation"
                       value={newPerson.schoolEducation}
                       onChange={e => setNewPerson({...newPerson, schoolEducation: e.target.value})}
-                      required
+                      disabled={educ}
                     />
                   </div>
                 </div>
@@ -593,7 +613,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       name="courseEducation"
                       value={newPerson.courseEducation}
                       onChange={e => setNewPerson({...newPerson, courseEducation: e.target.value})}
-                      required
+                      disabled={educ}
                     />
                   </div>
                 </div>
@@ -640,7 +660,10 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       className="form-control"
                       value={newPerson.sourceOfIncome}
                       name="sourceOfIncome"
-                      onChange={e => setNewPerson({...newPerson, sourceOfIncome: e.target.value})}
+                      onChange={e => {
+                        setNewPerson({...newPerson, sourceOfIncome: e.target.value});
+                        selectFinance(e, e.target.value);
+                      }}
                       required
                     >
                       <option value="" disabled>- SELECT SOURCE OF INCOME -</option>
@@ -661,7 +684,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       value={newPerson.estimatedYearlyIncome}
                       name="estimatedYearlyIncome"
                       onChange={e => setNewPerson({...newPerson, estimatedYearlyIncome: e.target.value})}
-                      required
+                      disabled={finance}
                     >
                       <option value="" disabled>- SELECT INCOME -</option>
                       <option value="5,000 - 100,000">5,000 - 100,000</option>
