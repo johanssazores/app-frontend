@@ -1,10 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import Grid from '@mui/material/Grid';
 import axios from 'axios'
-// import moment from 'moment'
+import moment from 'moment'
 import {
   // Bar, Line, 
   Doughnut } from "react-chartjs-2";
+
+const toStartOfDate = (date) => {
+  return moment(date).utc().hour(0).minute(0).second(0).millisecond(0).toDate();
+}
+
+const toEndOfDate = (date) => {
+  return moment(date).utc().hour(23).minute(59).second(59).millisecond(999).toDate();
+}
 
 const AdminDashboard = () => {
   const [datas, setDatas] = useState();
@@ -25,8 +33,8 @@ const AdminDashboard = () => {
     try {
       const queryParams = [];
       
-      if (startDate) queryParams.push(`startDate=${startDate}`);
-      if (endDate) queryParams.push(`endDate=${endDate}`)
+      if (startDate) queryParams.push(`startDate=${toStartOfDate(startDate)}`);
+      if (endDate) queryParams.push(`endDate=${toEndOfDate(endDate)}`)
 
       const getData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/filter/all-analytics?${queryParams.join("&")}`);
       setDatas(getData.data);
