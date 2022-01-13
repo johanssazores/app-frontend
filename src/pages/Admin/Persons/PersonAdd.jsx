@@ -540,6 +540,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       <option value="Vocational">Vocational</option>
                       <option value="College">College</option>
                       <option value="Post Graduate">Post Graduate</option>
+                      <option value="N/A">N/A</option>
                     </select>
                   </div>
                 </div>
@@ -646,6 +647,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       <option value="Work">Work</option>
                       <option value="Pension">Pension</option>
                       <option value="Other">Other </option>
+                      <option value="N/A">N/A </option>
                     </select>
                   </div>
                 </div>
@@ -921,6 +923,7 @@ const [yearGraduation, setYearGraduation] = useState(true)
                       <option value="Asthma">Asthma</option>
                       <option value="Tuberculosis">Tuberculosis</option>
                       <option value="Others">Others</option>
+                      <option value="N/A">N/A</option>
                     </select>
                   </div>
                 </div>

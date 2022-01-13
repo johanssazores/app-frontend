@@ -14,8 +14,8 @@ import { removeUserSession } from '../utils/Common'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import BusinessIcon from '@mui/icons-material/Business';
-import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+// import BusinessIcon from '@mui/icons-material/Business';
+// import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
 
 
@@ -65,7 +65,8 @@ const Sidebar = () => {
         </ListItemIcon>
         <span className="sidebar-label-desc">{`${sessionUser && sessionUser.role}`}</span>
       </ListItem>
-      <ListItem>
+
+      {/* <ListItem>
         <ListItemIcon>
           <CorporateFareIcon />
         </ListItemIcon>
@@ -76,7 +77,7 @@ const Sidebar = () => {
           <BusinessIcon />
         </ListItemIcon>
         <span className="sidebar-label-desc">{`${sessionUser && sessionUser.address}`}</span>
-      </ListItem>
+      </ListItem> */}
 
       <Divider />
       <ListSubheader inset>

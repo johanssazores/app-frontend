@@ -563,6 +563,7 @@ const PersonEdit = () => {
                       <option value="Vocational">Vocational</option>
                       <option value="College">College</option>
                       <option value="Post Graduate">Post Graduate</option>
+                      <option value="N/A">N/A</option>
                     </select>
                   </div>
                 </div>
@@ -614,6 +615,58 @@ const PersonEdit = () => {
                       onChange={e => setUpdatePerson({...updatePerson, courseEducation: e.target.value})}
                       required
                     />
+                  </div>
+                </div>
+
+            </div>
+
+            <hr/>
+
+
+            <div className="d-sm-flex align-items-center justify-content-between mb-4">
+              <h2 className="h5 mb-0 text-gray-800">Financial Information</h2>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Source of Income</label>
+                    <select
+                      type="text"
+                      className="form-control"
+                      value={updatePerson.sourceOfIncome}
+                      name="sourceOfIncome"
+                      onChange={e => setUpdatePerson({...updatePerson, sourceOfIncome: e.target.value})}
+                      required
+                    >
+                      <option value="" disabled>- SELECT SOURCE OF INCOME -</option>
+                      <option value="Work">Work</option>
+                      <option value="Pension">Pension</option>
+                      <option value="Other">Other </option>
+                      <option value="N/A">N/A </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label>Estimated Yearly Income</label>
+                    <select
+                      type="text"
+                      className="form-control"
+                      value={updatePerson.estimatedYearlyIncome}
+                      name="estimatedYearlyIncome"
+                      onChange={e => setUpdatePerson({...updatePerson, estimatedYearlyIncome: e.target.value})}
+                      required
+                    >
+                      <option value="" disabled>- SELECT INCOME -</option>
+                      <option value="5,000 - 100,000">5,000 - 100,000</option>
+                      <option value="100,001 - 250,000">100,001 - 250,000</option>
+                      <option value="250,001 - 450,000">250,001 - 450,000</option>
+                      <option value="450,001 - 650,000">450,001 - 650,000</option>
+                      <option value="650,001 - 850,000">650,001 - 850,000</option>
+                      <option value="850,001 - above">850,001 - above</option>
+                    </select>
                   </div>
                 </div>
 
@@ -866,6 +919,7 @@ const PersonEdit = () => {
                       <option value="Asthma">Asthma</option>
                       <option value="Tuberculosis">Tuberculosis</option>
                       <option value="Others">Others</option>
+                      <option value="N/A">N/A</option>
                     </select>
                   </div>
                 </div>
