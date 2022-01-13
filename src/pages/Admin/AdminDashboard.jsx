@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import axios from 'axios'
 import moment from 'moment'
 import {
-  // Bar, Line, 
+  // Bar, Line,
   Doughnut } from "react-chartjs-2";
 
 const toStartOfDate = (date) => {
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
 
   const userJson = sessionStorage.getItem("user");
   const user = JSON.parse(userJson);
-  
+
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
 
   const [startDate, setStartDate] = useState(new Date("1920-01-01"));
   const [endDate, setEndDate] = useState(new Date("2050-01-01"));
-  
+
   const handleChangeStartDate = (event) => {
     setStartDate(event.target.value);
   };
@@ -63,14 +63,14 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
-  // console.log(datas)
+  console.log(datas)
 
   const datasz = {
     labels: [
-      // 'Total Constituents', 
-      'Pregnant', 
-      'With Maintenance', 
-      'Male', 
+      // 'Total Constituents',
+      'Pregnant',
+      'With Maintenance',
+      'Male',
       'Female',
       'Smoking',
       'Drinking'
@@ -100,7 +100,6 @@ const AdminDashboard = () => {
     ],
   };
 
-
   return (
     <>
       <h2>Analytics</h2>
@@ -117,7 +116,7 @@ const AdminDashboard = () => {
               <div className="col-md-4">
                 <label htmlFor="">To Date</label>
                 <div className="form-group">
-              
+
                   <input type="date" placeholder="TO" className="form-control" onChange={handleChangeEndDate} value={endDate} />
                 </div>
               </div>
@@ -133,6 +132,15 @@ const AdminDashboard = () => {
 
         <Grid item xs={6}>
           <Doughnut data={datasz} />
+        </Grid>
+
+        <Grid item xs={6}>
+            <h2>Total Pregnant: {datas[0]}</h2>
+            <h2>Total With Maintenance: {datas[1]}</h2>
+            <h2>Total Male: {datas[2]}</h2>
+            <h2>Total Female: {datas[3]}</h2>
+            <h2>Total Smoking: {datas[4]}</h2>
+            <h2>Total Drinking: {datas[5]}</h2>
         </Grid>
 
         {/* <Grid item xs={6}>
