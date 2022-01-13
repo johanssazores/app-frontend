@@ -47,6 +47,7 @@ const AdminDashboard = () => {
 
   const [startDate, setStartDate] = useState(new Date("1920-01-01"));
   const [endDate, setEndDate] = useState(new Date("2050-01-01"));
+  
   const handleChangeStartDate = (event) => {
     setStartDate(event.target.value);
   };
@@ -65,7 +66,15 @@ const AdminDashboard = () => {
   // console.log(datas)
 
   const datasz = {
-    labels: ['Total Constituents', 'Total Pregnant', 'Total with Maintenance', 'Total Male', 'Total Female'],
+    labels: [
+      // 'Total Constituents', 
+      'Pregnant', 
+      'With Maintenance', 
+      'Male', 
+      'Female',
+      'Smoking',
+      'Drinking'
+    ],
     datasets: [
       {
         label: '# of Votes',
@@ -91,122 +100,38 @@ const AdminDashboard = () => {
     ],
   };
 
-  // const data = {
-  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-  //   datasets: [
-  //     {
-  //       label: "Data 2021",
-  //       data: [45, 53, 85, 41, 44, 65, 85, 41, 44, 65, 50, 24],
-  //       fill: false,
-  //       borderColor: "rgba(75,192,192,1)"
-  //     },
-  //     {
-  //       label: "Data 2022",
-  //       data: [33, 25, 35, 51, 54, 76,33, 25, 35, 51, 54, 76],
-  //       fill: false,
-  //       borderColor: "#742774"
-  //     }
-  //   ]
-  // };
-
-  // const data2 = {
-  //   labels: ["Jan"],
-  //   datasets: [
-  //     {
-  //       label: "District",
-  //       data: [54],
-  //       fill: false,
-  //       borderColor: "violet"
-  //     },
-  //     {
-  //       label: "Barangay",
-  //       data: [7],
-  //       fill: false,
-  //       borderColor: "purple"
-  //     },
-  //     {
-  //       label: "Street Name",
-  //       data: [7],
-  //       fill: false,
-  //       borderColor: "brown"
-  //     },
-  //     {
-  //       label: "Gender",
-  //       data: [33],
-  //       fill: false,
-  //       borderColor: "rgba(75,192,192,1)"
-  //     },
-  //     {
-  //       label: "Maintenance",
-  //       data: [13],
-  //       fill: false,
-  //       borderColor: "green"
-  //     },
-  //     {
-  //       label: "Pregnant",
-  //       data: [13],
-  //       fill: false,
-  //       borderColor: "orange"
-  //     },
-  //     {
-  //       label: "Education",
-  //       data: [7],
-  //       fill: false,
-  //       borderColor: "pink"
-  //     }
-  //   ]
-  // };
-
-  // const startDate = new Date();
-  // const labels = [];
-  
-  // for (let i = 0; i < 6; i++) {
-  //   const date = moment(startDate)
-  //     .add(i, "days")
-  //     .format("YYYY-MM-DD");
-  //   labels.push(date.toString());
-  // }
-
-  // const dataLine = canvas => {
-  //   const ctx = canvas.getContext("2d");
-  //   const gradient = ctx.createLinearGradient(0, 0, 100, 0);
-  //   return {
-  //     backgroundColor: gradient,
-  //     labels,
-  //     datasets: [
-  //       {
-  //         label: "# of Pregnant",
-  //         data: [12, 19, 3, 50, 2, 3],
-  //         borderWidth: 3,
-  //         fill: false,
-  //         borderColor: "pink"
-  //       }
-  //     ]
-  //   };
-  // };
-
-
-
 
   return (
     <>
       <h2>Analytics</h2>
-      <h3>Overall Totals</h3>
-
-      <form onSubmit={handleSubmit}>
-        <label>
-          From
-          <input type="date" onChange={handleChangeStartDate} value={startDate} />
-        </label>
-        <label>
-          To
-          <input type="date" onChange={handleChangeEndDate} value={endDate} />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-
       <Grid container spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
+          <form onSubmit={handleSubmit} style={{display:"flex"}}>
+            <div className="row">
+              <div className="col-md-4">
+                <label htmlFor="">From Date</label>
+                <div className="form-group">
+                  <input type="date" placeholder="FROM" className="form-control" onChange={handleChangeStartDate} value={startDate} />
+                </div>
+              </div>
+              <div className="col-md-4">
+                <label htmlFor="">To Date</label>
+                <div className="form-group">
+              
+                  <input type="date" placeholder="TO" className="form-control" onChange={handleChangeEndDate} value={endDate} />
+                </div>
+              </div>
+              <div className="col-md-4">
+                <label htmlFor="" style={{backgroundColor: "#f5deb300", color: "#f5deb300"}}>ACTION</label>
+                <div className="form-group">
+                  <button className="btn btn-primary form-control" type="submit">Filter</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </Grid>
+
+        <Grid item xs={6}>
           <Doughnut data={datasz} />
         </Grid>
 
