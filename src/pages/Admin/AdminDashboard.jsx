@@ -7,21 +7,36 @@ import {
   Doughnut } from "react-chartjs-2";
 
 const AdminDashboard = () => {
-
-
   const [datas, setDatas] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(null);
 
-  useEffect(() => {
-    async function getUsers() {
-      const getData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/filter/all-analytics`);
+  const [startDate, setStartDate] = useState(new Date("1920-01-01"));
+  const [endDate, setEndDate] = useState(new Date("2050-01-01"));
+  const handleChangeStartDate = (event) => {
+    setStartDate(event.target.value);
+  };
+  const handleChangeEndDate = (event) => {
+    setEndDate(event.target.value);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const queryParams = [];
+      
+      if (startDate) queryParams.push(`startDate=${startDate}`);
+      if (endDate) queryParams.push(`endDate=${endDate}`)
+
+      const getData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/filter/all-analytics?${queryParams.join("&")}`);
       setDatas(getData.data);
       setIsLoading(false)
-    } 
-    getUsers();
-  }, []);
-
-  console.log(datas)
+    }
+    catch (error) {
+      console.error(error);
+    }
+  };
+  // console.log(datas)
 
   const datasz = {
     labels: ['Total Constituents', 'Total Pregnant', 'Total with Maintenance', 'Total Male', 'Total Female'],
@@ -151,6 +166,19 @@ const AdminDashboard = () => {
     <>
       <h2>Analytics</h2>
       <h3>Overall Totals</h3>
+
+      <form onSubmit={handleSubmit}>
+        <label>
+          From
+          <input type="date" onChange={handleChangeStartDate} value={startDate} />
+        </label>
+        <label>
+          To
+          <input type="date" onChange={handleChangeEndDate} value={endDate} />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+
       <Grid container spacing={3}>
         <Grid item xs={4}>
           <Doughnut data={datasz} />
