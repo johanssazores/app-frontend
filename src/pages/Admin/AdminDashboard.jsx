@@ -18,17 +18,26 @@ const AdminDashboard = () => {
   const [datas, setDatas] = useState();
   const [isLoading, setIsLoading] = useState(null);
 
+  const userJson = sessionStorage.getItem("user");
+  const user = JSON.parse(userJson);
+  
   const fetchData = async () => {
     setIsLoading(true);
 
     try {
-      const queryParams = [];
-      
-      if (startDate) queryParams.push(`startDate=${toStartOfDate(startDate)}`);
-      if (endDate) queryParams.push(`endDate=${toEndOfDate(endDate)}`)
+      const response = await axios.request({
+        method: 'POST',
+        url: `${process.env.REACT_APP_BACKEND_URL}/filter/all-analytics`,
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify({
+          role: user.role,
+          address: user.address,
+          startDate: startDate ? toStartOfDate(startDate) : undefined,
+          endDate: endDate ? toEndOfDate(endDate) : undefined
+        })
+      });
 
-      const getData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/filter/all-analytics?${queryParams.join("&")}`);
-      setDatas(getData.data);
+      setDatas(response.data);
       setIsLoading(false)
     }
     catch (error) {
