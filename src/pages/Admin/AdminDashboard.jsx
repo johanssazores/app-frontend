@@ -135,12 +135,12 @@ const AdminDashboard = () => {
         </Grid>
 
         <Grid item xs={6}>
-            <h2>Total Pregnant: {datas[0]}</h2>
-            <h2>Total With Maintenance: {datas[1]}</h2>
-            <h2>Total Male: {datas[2]}</h2>
-            <h2>Total Female: {datas[3]}</h2>
-            <h2>Total Smoking: {datas[4]}</h2>
-            <h2>Total Drinking: {datas[5]}</h2>
+            <h2>Total Pregnant: {datas && datas[0]}</h2>
+            <h2>Total With Maintenance: {datas && datas[1]}</h2>
+            <h2>Total Male: {datas && datas[2]}</h2>
+            <h2>Total Female: {datas && datas[3]}</h2>
+            <h2>Total Smoking: {datas && datas[4]}</h2>
+            <h2>Total Drinking: {datas && datas[5]}</h2>
         </Grid>
 
         {/* <Grid item xs={6}>

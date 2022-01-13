@@ -37,6 +37,10 @@ import Persons from './pages/Admin/Persons/Persons'
 import PersonAdd from './pages/Admin/Persons/PersonAdd'
 import PersonEdit from './pages/Admin/Persons/PersonEdit'
 
+import PersonsBarangay from './pages/Admin/PersonBarangay/Persons'
+import PersonAddBarangay from './pages/Admin/PersonBarangay/PersonAdd'
+import PersonEditBarangay from './pages/Admin/PersonBarangay/PersonEdit'
+
 import Movements from './pages/Admin/Movements/Movements';
 import ScannerQR from './pages/ScannerQR';
 
@@ -121,6 +125,10 @@ const App = () => {
         <PrivateRoute exact path="/admin/persons" component={Persons} />
         <PrivateRoute exact path="/admin/person-add" component={PersonAdd} />
         <PrivateRoute exact path="/admin/person/:id" component={PersonEdit} />
+
+        <PrivateRoute exact path="/admin/persons-barangay" component={PersonsBarangay} />
+        <PrivateRoute exact path="/admin/person-add-barangay" component={PersonAddBarangay} />
+        <PrivateRoute exact path="/admin/person-barangay/:id" component={PersonEditBarangay} />
 
         <PrivateRoute exact path="/admin/movements" component={Movements} />
 
