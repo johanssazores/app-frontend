@@ -18,7 +18,7 @@ import QRView from './pages/QRView';
 
 import AdminLogin from './pages/AdminLogin';
 
-import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminDashboard from './pages/Admin/AdminDash';
 import AdminSettings from './pages/Admin/AdminSettings';
 
 import Users from './pages/Admin/Users/Users'
