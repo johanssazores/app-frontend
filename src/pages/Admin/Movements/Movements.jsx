@@ -4,13 +4,40 @@ import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 import MUIDataTable from "mui-datatables";
 import { Line } from "react-chartjs-2";
-
+import moment from 'moment';
 // import { Link } from 'react-router-dom';
 
 const Movements = () => {
 
   const [movement, setMovement] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const dataDates = [];
+
+  var startDate = new Date('December 30, 2021');
+  var nowDate = new Date();
+
+  const SMF = [];
+  const SMN = [];
+
+  for (let d = startDate; d < nowDate; d.setDate(d.getDate() + 1)) {
+    // console.log(moment(d).format('MMM Do YY'));
+    SMF.push(Math.floor((Math.random() * 100) + 1))
+    SMN.push(Math.floor((Math.random() * 100) + 1))
+    dataDates.push(moment(d).format('MMM Do YY'))
+  }
+
+  function addD(accumulator, a) {
+    return accumulator + a;
+  }
+
+  const SMFSUM = SMF.reduce(addD, 0); 
+  const SMNSUM = SMN.reduce(addD, 0); 
+
+
+
+  console.log(SMFSUM, SMNSUM);
+
 
   async function getMovement() {
     const getMovement = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movement`);
@@ -138,23 +165,28 @@ const Movements = () => {
     // }
   };
 
+
+
+
   const lineP = {
-    labels: ['Dec-21', 'Jun-22', 'Dec-22', 'Jun-23', 'Dec-23', 'Jun-24', 'Dec-24'],
+    labels: dataDates,
     datasets: [
       {
         label: 'SM North',
-        data: [136, 172, 456, 123, 532, 100, 500],
+        data: SMF,
         borderColor: 'blue',
         backgroundColor: 'blue',
       },
       {
         label: 'SM Fairview - Jollibee',
-        data: [256, 764, 193, 564, 42, 534, 0],
+        data: SMN,
         borderColor: 'red',
         backgroundColor: 'red',
       },
     ],
   };
+
+
 
   return (
     <>
@@ -165,11 +197,11 @@ const Movements = () => {
           <h2>Total People</h2>
           <h3>SM North: 
             <br /> 
-          <strong>2,255</strong>
+          <strong>{SMFSUM}</strong>
           </h3>
           <h3>SM Fairview - Jollibee: 
             <br/>
-          <strong>2,353 </strong></h3>
+          <strong>{SMNSUM} </strong></h3>
         </div>
         <div className="col-md-9">
             <Line data={lineP} />
