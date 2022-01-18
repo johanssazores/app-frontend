@@ -3,6 +3,8 @@ import axios from 'axios';
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 import MUIDataTable from "mui-datatables";
+import { Line } from "react-chartjs-2";
+
 // import { Link } from 'react-router-dom';
 
 const Movements = () => {
@@ -136,9 +138,45 @@ const Movements = () => {
     // }
   };
 
+  const lineP = {
+    labels: ['Dec-21', 'Jun-22', 'Dec-22', 'Jun-23', 'Dec-23', 'Jun-24', 'Dec-24'],
+    datasets: [
+      {
+        label: 'SM North',
+        data: [136, 172, 456, 123, 532, 100, 500],
+        borderColor: 'blue',
+        backgroundColor: 'blue',
+      },
+      {
+        label: 'SM Fairview - Jollibee',
+        data: [256, 764, 193, 564, 42, 534, 0],
+        borderColor: 'red',
+        backgroundColor: 'red',
+      },
+    ],
+  };
+
   return (
     <>
     <div className="container-fluid">
+      <h1>Movements Analytics</h1>
+      <div className="row">
+        <div className="col-md-3">
+          <h2>Total People</h2>
+          <h3>SM North: 
+            <br /> 
+          <strong>2,255</strong>
+          </h3>
+          <h3>SM Fairview - Jollibee: 
+            <br/>
+          <strong>2,353 </strong></h3>
+        </div>
+        <div className="col-md-9">
+            <Line data={lineP} />
+        </div>
+      </div>
+
+
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Movements</h1>
         {/* <Link to="/admin/Movement-add" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Add Movement</Link> */}
